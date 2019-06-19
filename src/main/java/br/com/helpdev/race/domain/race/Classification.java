@@ -1,39 +1,38 @@
 package br.com.helpdev.race.domain.race;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.com.helpdev.race.shared.utils.TimeUtils.getDiffInNano;
+
 public class Classification {
 
-    static Classification build(int placeInRace, PilotRace pilot, LapInfos lap, List<Classification> listClassification) {
-        Classification classification = new Classification(placeInRace, pilot, lap);
-        if (!listClassification.isEmpty()) {
+    static class Builder {
+        static Classification create(int placeInRace, PilotId pilot, LapInfos lap, List<Classification> listClassification) {
+            Classification classification = new Classification(placeInRace, pilot, lap);
+            if (listClassification.isEmpty()) return classification;
+
             for (Classification cls : listClassification) {
-                PilotTime pilotTime = new PilotTime(cls.placeInRace, cls.pilot, getDiff(cls.lap.getLapTime(), lap.getLapTime()));
+                PilotTime pilotTime = new PilotTime(cls.placeInRace, cls.pilot, getDiffInNano(lap.getLapTime(), cls.lap.getLapTime()));
                 classification.timeTo.add(pilotTime);
             }
+            return classification;
         }
-        return classification;
-    }
-
-    private static long getDiff(LocalTime localTime_1, LocalTime localTime_2) {
-        return localTime_2.toNanoOfDay() - localTime_1.toNanoOfDay();
     }
 
     private int placeInRace;
-    private PilotRace pilot;
+    private PilotId pilot;
     private LapInfos lap;
     private List<PilotTime> timeTo;
 
-    private Classification(int placeInRace, PilotRace pilot, LapInfos lap) {
+    private Classification(int placeInRace, PilotId pilot, LapInfos lap) {
         this.placeInRace = placeInRace;
         this.pilot = pilot;
         this.lap = lap;
         this.timeTo = new ArrayList<>();
     }
 
-    public PilotRace getPilot() {
+    public PilotId getPilot() {
         return pilot;
     }
 

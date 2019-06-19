@@ -1,7 +1,8 @@
 package br.com.helpdev.race.domain.race;
 
-import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class LapRace {
 
@@ -14,17 +15,15 @@ public class LapRace {
         this.classification = new ArrayList<>();
     }
 
-    void updateClassification(PilotRace pilot, LapInfos lap) {
+    void updateClassification(PilotId pilot, LapInfos lap) {
         int placeInRace = getNewPlaceInClassification();
-        classification.add(Classification.build(placeInRace, pilot, lap, getClassification()));
-        verifyFaster(placeInRace, pilot, lap);
+        classification.add(Classification.Builder.create(placeInRace, pilot, lap, getClassification()));
+        verifyFaster(pilot, lap, placeInRace);
     }
 
-    private void verifyFaster(int placeInRace, Pilot pilot, LapInfos lap) {
-        long nano =  lap.getLapTime().toNanoOfDay();
-        if (faster == null || nano > faster.getTimeInMillis()) {
-            faster = new PilotTime(placeInRace, pilot, nano);
-        }
+    private void verifyFaster(PilotId pilot, LapInfos lap, int placeInRace) {
+        PilotTime pilotTime = new PilotTime(placeInRace, pilot, lap.getLapTime().toNanoOfDay());
+        faster = pilotTime.getFasterThan(faster);
     }
 
     public int getLapNumber() {

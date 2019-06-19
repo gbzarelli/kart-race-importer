@@ -8,7 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LapTranslateLogFile {
+import static br.com.helpdev.race.shared.utils.TimeUtils.convertToLocalTime;
+
+public class LapLogFileTranslate {
 
     public static LapEntity translate(String input) {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
@@ -19,12 +21,12 @@ public class LapTranslateLogFile {
         int lapNumber = Integer.parseInt(split[split.length - 3].trim());
         String lapTimeString = split[split.length - 2].trim();
 
-        LocalTime time = convertToDateTimeFormat(
+        LocalTime time = convertToLocalTime(
                 timeString,
                 pattern
         );
         String pilot = extractPilotName(input);
-        LocalTime lapTime = convertToDateTimeFormat(
+        LocalTime lapTime = convertToLocalTime(
                 lapTimeString,
                 pattern
         );
@@ -47,15 +49,5 @@ public class LapTranslateLogFile {
         return "<Not Found>";
     }
 
-    private static LocalTime convertToDateTimeFormat(String timeString, DateTimeFormatter pattern) {
-        String newTimeString = timeString;
-        if (timeString.length() == 8) {
-            newTimeString = "00:0" + timeString;
-        } else if (timeString.length() == 9) {
-            newTimeString = "00:" + timeString;
-        } else if (timeString.length() == 10) {
-            newTimeString = "0" + timeString;
-        }
-        return LocalTime.from(pattern.parse(newTimeString));
-    }
+
 }

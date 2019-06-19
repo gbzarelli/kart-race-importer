@@ -1,17 +1,30 @@
 package br.com.helpdev.race.domain.race;
 
-public abstract class Pilot {
+public class Pilot {
 
-    private int number;
+    private PilotId pilotId;
     private String name;
 
-    Pilot(int number, String name) {
-        this.number = number;
+    public Pilot(PilotId pilotId, String name) {
+        this.pilotId = pilotId;
         this.name = name;
     }
 
-    public int getNumber() {
-        return number;
+    public ToRace subscribe() {
+        return race -> {
+            PilotRace pr = new PilotRace(race.getRaceId(), this);
+            race.addPilot(pr);
+            return pr;
+        };
+    }
+
+    @FunctionalInterface
+    public interface ToRace {
+        PilotRace toRace(Race race);
+    }
+
+    public PilotId getPilotId() {
+        return pilotId;
     }
 
     public String getName() {
@@ -19,9 +32,14 @@ public abstract class Pilot {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Pilot && ((Pilot) obj).pilotId.equals(pilotId);
+    }
+
+    @Override
     public String toString() {
         return "Pilot{" +
-                "number=" + number +
+                "pilotId=" + pilotId +
                 ", name='" + name + '\'' +
                 '}';
     }

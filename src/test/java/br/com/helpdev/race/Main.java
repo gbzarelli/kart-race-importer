@@ -1,26 +1,28 @@
-package br.com.helpdev.race.presentation;
+package br.com.helpdev.race;
 
-import br.com.helpdev.race.application.RaceFacade;
-import br.com.helpdev.race.application.impl.RaceService;
-import br.com.helpdev.race.domain.importer.Races;
-import br.com.helpdev.race.domain.race.*;
+import br.com.helpdev.race.application.ImporterFacade;
+import br.com.helpdev.race.application.importer.ImporterService;
+import br.com.helpdev.race.application.importer.command.ImportRaceByDateCommand;
+import br.com.helpdev.race.domain.race.LapRace;
+import br.com.helpdev.race.domain.race.PilotRace;
+import br.com.helpdev.race.domain.race.PilotTime;
+import br.com.helpdev.race.domain.race.Race;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 
-public class Main {
+class Main {
 
-    public static void main(String[] args) {
-        Main main = new Main();
-        main.showRacesFrom(LocalDate.of(2019, Month.JUNE, 18));
-    }
+    private final ImporterFacade importer = new ImporterService();
 
-    private final RaceFacade raceService = new RaceService();
-
-    public void showRacesFrom(LocalDate localDate) {
-        Races races = raceService.getRaces(localDate);
+    @Test
+    void showRacesFrom() {
+        LocalDate localDate = LocalDate.of(2019, Month.JUNE, 18);
+        List<Race> races = importer.importRaces(new ImportRaceByDateCommand(localDate)).getRaces();
         System.out.println("========= RACES FROM " + localDate.toString() + " =========");
-        races.getRaces().forEach(this::printRace);
+        races.forEach(this::printRace);
     }
 
     private void printRace(Race race) {
@@ -37,7 +39,6 @@ public class Main {
             LapRace lap = race.getLap(i);
             printLap(lap);
         }
-
     }
 
     private void printWinner(LapRace lastLap) {
@@ -47,7 +48,7 @@ public class Main {
     private void printLap(LapRace lap) {
         System.out.println("\tLap Number: " + lap.getLapNumber());
         PilotTime faster = lap.getFaster();
-        System.out.println("\tFaster in lap: " + faster.getPilot().getName() + " - Time: " + faster.getTimeInSeconds() + "seg");
+        System.out.println("\tFaster in lap: " + faster.getPilot().getName() + " - Time: " + faster.getFormattedTime());
         System.out.println("\tClassification lap: " + lap.getClassification());
     }
 

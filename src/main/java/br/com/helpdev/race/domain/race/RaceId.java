@@ -5,11 +5,11 @@ import java.util.UUID;
 public class RaceId {
     private String id;
 
-    public RaceId(String id) {
+    private RaceId(String id) {
         this.id = id;
     }
 
-    public static RaceId getNewRaceID() {
+    static RaceId getNewRaceID() {
         return new RaceId(UUID.randomUUID().toString());
     }
 

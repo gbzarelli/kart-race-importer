@@ -1,44 +1,51 @@
 package br.com.helpdev.race.domain.race;
 
-import java.util.concurrent.TimeUnit;
+import br.com.helpdev.race.shared.utils.TimeUtils;
 
 public class PilotTime {
 
     private Integer placeInRace;
-    private Pilot pilot;
+    private PilotId pilot;
     private long timeInNano;
+    private String formattedTime;
 
-    PilotTime(Integer placeInRace, Pilot pilot, long timeInNano) {
+    PilotTime(Integer placeInRace, PilotId pilot, long timeInNano) {
         this.placeInRace = placeInRace;
         this.pilot = pilot;
         this.timeInNano = timeInNano;
+        this.formattedTime = TimeUtils.formatNanoTime(timeInNano);
     }
 
     public Integer getPlaceInRace() {
         return placeInRace;
     }
 
-    public Pilot getPilot() {
+    public PilotId getPilot() {
         return pilot;
     }
-
 
     public long getTimeInNano() {
         return timeInNano;
     }
 
-    public long getTimeInMillis() {
-        return TimeUnit.NANOSECONDS.toMillis(timeInNano);
+    public String getFormattedTime() {
+        return formattedTime;
     }
 
-    public long getTimeInSeconds() {
-        return TimeUnit.NANOSECONDS.toSeconds(timeInNano);
+    PilotTime getFasterThan(PilotTime lastFaster) {
+        if (lastFaster == null || timeInNano < lastFaster.getTimeInNano()) {
+            return this;
+        }
+        return lastFaster;
     }
 
     @Override
     public String toString() {
         return "PilotTime{" +
-                " timeInMillis=" + getTimeInMillis() +
+                " pilot=" + getPilot().getNumber() +
+                " time=" + getFormattedTime() +
                 '}';
     }
+
+
 }

@@ -19,11 +19,11 @@ public class Race {
         this.laps = new LinkedHashMap<>();
     }
 
-    public RaceId getId() {
+    public RaceId getRaceId() {
         return id;
     }
 
-    void updateLapRace(Integer lapNumber, PilotRace pilot, LapInfos lap) {
+    void updateLapRace(Integer lapNumber, PilotId pilot, LapInfos lap) {
         LapRace lapRace = laps.getOrDefault(lapNumber, new LapRace(lapNumber));
         lapRace.updateClassification(pilot, lap);
         laps.put(lapNumber, lapRace);
@@ -50,8 +50,15 @@ public class Race {
         return laps.size();
     }
 
-    public PilotRace getWinner() {
-        return laps.get(laps.size()).getClassification().get(0).getPilot();
+    public Pilot getWinner() {
+        //TODO CACHE
+        PilotId pilot = laps.get(laps.size()).getClassification().get(0).getPilot();
+        for (PilotRace pilotRace : pilots) {
+            if (pilotRace.getPilotId().equals(pilot)) {
+                return pilotRace;
+            }
+        }
+        return null;
     }
 
     public LocalDate getDate() {

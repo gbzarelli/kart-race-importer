@@ -22,6 +22,10 @@ public class LapInfos {
         return lapTime;
     }
 
+    public boolean bestOf(LapInfos lapInfos) {
+        return lapInfos == null || lapTime.toNanoOfDay() < lapInfos.lapTime.toNanoOfDay();
+    }
+
     public void setLapTime(LocalTime lapTime) {
         this.lapTime = lapTime;
     }

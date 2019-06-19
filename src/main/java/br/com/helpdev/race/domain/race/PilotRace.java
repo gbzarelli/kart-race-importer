@@ -5,31 +5,26 @@ import java.util.List;
 
 public class PilotRace extends Pilot {
 
-    private Race race;
+    private RaceId race;
     private List<LapInfos> laps;
     private LapInfos bestLap;
 
-    public PilotRace(Race race, int number, String name) {
-        super(number, name);
+    PilotRace(RaceId race, Pilot pilot) {
+        super(pilot.getPilotId(), pilot.getName());
         this.race = race;
         this.laps = new ArrayList<>();
-        subscribe().toRace(race);
     }
 
-    private ToRace subscribe() {
-        return race -> race.addPilot(this);
+    public ToRace newLap(LapInfos lap) {
+        return race -> {
+            laps.add(lap);
+            verifyBestLap(lap);
+            race.updateLapRace(laps.size(), getPilotId(), lap);
+        };
     }
 
-    public void newLap(LapInfos lap) {
-        laps.add(lap);
-        verifyPilotBestLap(lap);
-        race.updateLapRace(laps.size(), this, lap);
-    }
-
-    private void verifyPilotBestLap(LapInfos lap) {
-        if (bestLap == null || lap.getLapTime().getNano() < bestLap.getLapTime().getNano()) {
-            bestLap = lap;
-        }
+    private void verifyBestLap(LapInfos lap) {
+        if (lap.bestOf(bestLap)) bestLap = lap;
     }
 
     public LapInfos getBestLap() {
@@ -46,6 +41,10 @@ public class PilotRace extends Pilot {
             x += lapInfo.getAvgSpeed();
         }
         return x / laps.size();
+    }
+
+    public RaceId getRace() {
+        return race;
     }
 
     @FunctionalInterface

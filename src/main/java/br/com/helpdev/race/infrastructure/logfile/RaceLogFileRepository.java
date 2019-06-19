@@ -2,16 +2,16 @@ package br.com.helpdev.race.infrastructure.logfile;
 
 import br.com.helpdev.race.domain.importer.RaceRepository;
 import br.com.helpdev.race.domain.importer.Races;
-import br.com.helpdev.race.domain.race.LapInfos;
 import br.com.helpdev.race.domain.race.PilotRace;
 import br.com.helpdev.race.domain.race.Race;
 import br.com.helpdev.race.infrastructure.logfile.entities.LapEntity;
-import br.com.helpdev.race.infrastructure.logfile.entities.PilotEntity;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,15 +20,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static br.com.helpdev.race.infrastructure.RaceResources.getPathLogRacesFolder;
+import static br.com.helpdev.race.infrastructure.logfile.RaceTranslate.getLapInfoFromLapEntity;
+import static br.com.helpdev.race.infrastructure.logfile.RaceTranslate.getPilotRaceFromLapEntity;
+
 public class RaceLogFileRepository implements RaceRepository {
 
-    private static final String PATH_FILES = "./races/";
+    private static final String DATE_TIME_FORMATTER_PATTERN_YYYYMMMDD = "yyyyMMdd";
 
     @Override
-    public Races importRaceByDate(LocalDate localDate) {
+    public Races importRacesByDate(LocalDate localDate) {
         List<Race> races = new ArrayList<>();
         try {
-            Stream<Path> pathStream = getFilesByDate(localDate);
+            Stream<Path> pathStream = getFilesByDate(getPathLogRacesFolder(), localDate);
             pathStream.parallel().forEach(path -> {
                 try {
                     races.add(getRaceFromPath(path, localDate));
@@ -55,22 +59,14 @@ public class RaceLogFileRepository implements RaceRepository {
 
         while (bis.ready()) {
             String line = bis.readLine();
-            LapEntity translate = LapTranslateLogFile.translate(line);
+            LapEntity translate = LapLogFileTranslate.translate(line);
             PilotRace pilot = pilots.get(translate.getPilot().getNumber());
             if (pilot == null) {
                 pilot = getPilotRaceFromLapEntity(race, translate);
-                pilots.put(pilot.getNumber(), pilot);
+                pilots.put(pilot.getPilotId().getNumber(), pilot);
             }
-            pilot.newLap(getLapInfoFromLapEntity(translate));
+            pilot.newLap(getLapInfoFromLapEntity(translate)).toRace(race);
         }
-    }
-
-    private LapInfos getLapInfoFromLapEntity(LapEntity translate) {
-        return new LapInfos(translate.getTime(), translate.getLapTime(), translate.getSpeedAvg());
-    }
-
-    private PilotRace getPilotRaceFromLapEntity(Race race, LapEntity translate) {
-        return new PilotRace(race, translate.getPilot().getNumber(), translate.getPilot().getName());
     }
 
     private BufferedReader getBufferedReader(Path path) throws IOException {
@@ -78,9 +74,8 @@ public class RaceLogFileRepository implements RaceRepository {
         return new BufferedReader(new InputStreamReader(is));
     }
 
-    private Stream<Path> getFilesByDate(LocalDate localDate) throws IOException {
-        String formatterDate = DateTimeFormatter.ofPattern("yyyyMMdd").format(localDate);
-        Path path = Paths.get(PATH_FILES);
-        return Files.list(path).filter(filter -> filter.getFileName().toString().startsWith(formatterDate));
+    private Stream<Path> getFilesByDate(Path root, LocalDate localDate) throws IOException {
+        String formatterDate = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN_YYYYMMMDD).format(localDate);
+        return Files.list(root).filter(filter -> filter.getFileName().toString().startsWith(formatterDate));
     }
 }

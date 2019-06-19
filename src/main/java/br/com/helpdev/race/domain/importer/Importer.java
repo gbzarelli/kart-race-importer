@@ -10,7 +10,7 @@ public class Importer {
     private final RaceRepository repository = new RaceLogFileRepository();
 
     public By getRaces() {
-        return repository::importRaceByDate;
+        return repository::importRacesByDate;
     }
 
     @FunctionalInterface

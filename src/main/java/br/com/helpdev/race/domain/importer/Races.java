@@ -12,8 +12,10 @@ public class Races {
         return new Races(Collections.unmodifiableList(races), localDate);
     }
 
-    private List<Race> races;
+    //Poderia agregar mensagens de erro, pensar em uma implementação pde Notifications.
+
     private LocalDate localDate;
+    private List<Race> races;
 
     private Races(List<Race> races, LocalDate localDate) {
         this.races = races;
