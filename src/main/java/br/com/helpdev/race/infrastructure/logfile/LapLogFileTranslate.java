@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 import static br.com.helpdev.race.shared.utils.TimeUtils.convertToLocalTime;
 
-public class LapLogFileTranslate {
+class LapLogFileTranslate {
 
-    public static LapEntity translate(String input) {
+    static LapEntity translate(String input) {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
         String[] split = input.split("\\s+");
 

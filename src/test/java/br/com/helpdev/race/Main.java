@@ -42,13 +42,13 @@ class Main {
     }
 
     private void printWinner(LapRace lastLap) {
-        System.out.println(lastLap.getClassification().get(0).getPilot().getName());
+        System.out.println(lastLap.getClassification().get(0).getPilot().getNumber());
     }
 
     private void printLap(LapRace lap) {
         System.out.println("\tLap Number: " + lap.getLapNumber());
         PilotTime faster = lap.getFaster();
-        System.out.println("\tFaster in lap: " + faster.getPilot().getName() + " - Time: " + faster.getFormattedTime());
+        System.out.println("\tFaster in lap: " + faster.getPilot().getNumber() + " - Time: " + faster.getFormattedTime());
         System.out.println("\tClassification lap: " + lap.getClassification());
     }
 
