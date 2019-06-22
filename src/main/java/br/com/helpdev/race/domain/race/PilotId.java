@@ -14,4 +14,9 @@ public class PilotId {
     public boolean equals(Object obj) {
         return obj instanceof PilotId && ((PilotId) obj).number == number;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(number);
+    }
 }

@@ -1,19 +1,19 @@
-package br.com.helpdev.race.application.importer.command;
+package br.com.helpdev.race.application.importer.dto;
 
 import br.com.helpdev.race.domain.race.Race;
-import br.com.helpdev.race.shared.command.CommandResult;
+import br.com.helpdev.race.shared.dto.OutputDTO;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class RacesImportedCommandResult extends CommandResult {
+public class RacesImported extends OutputDTO {
 
     //Poderia utilizar codigo e mensagem de sucesso ou falha.
 
     private LocalDate localDate;
     private List<Race> races;
 
-    public RacesImportedCommandResult(LocalDate localDate, List<Race> races) {
+    public RacesImported(LocalDate localDate, List<Race> races) {
         this.localDate = localDate;
         this.races = races;
     }

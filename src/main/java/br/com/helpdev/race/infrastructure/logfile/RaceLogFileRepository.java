@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 
 import static br.com.helpdev.race.infrastructure.RaceResources.getPathLogRacesFolder;
 import static br.com.helpdev.race.infrastructure.logfile.RaceTranslate.getLapInfoFromLapEntity;
-import static br.com.helpdev.race.infrastructure.logfile.RaceTranslate.getPilotRaceFromLapEntity;
+import static br.com.helpdev.race.infrastructure.logfile.RaceTranslate.getPilotRaceFromPilotEntity;
 
 public class RaceLogFileRepository implements RaceRepository {
 
@@ -62,7 +62,7 @@ public class RaceLogFileRepository implements RaceRepository {
             LapEntity translate = LapLogFileTranslate.translate(line);
             PilotRace pilot = pilots.get(translate.getPilot().getNumber());
             if (pilot == null) {
-                pilot = getPilotRaceFromLapEntity(race, translate);
+                pilot = getPilotRaceFromPilotEntity(race, translate.getPilot());
                 pilots.put(pilot.getPilotId().getNumber(), pilot);
             }
             pilot.newLap(getLapInfoFromLapEntity(translate)).toRace(race);

@@ -12,6 +12,9 @@ import static br.com.helpdev.race.shared.utils.TimeUtils.convertToLocalTime;
 
 class LapLogFileTranslate {
 
+    private LapLogFileTranslate() {
+    }
+
     static LapEntity translate(String input) {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
         String[] split = input.split("\\s+");

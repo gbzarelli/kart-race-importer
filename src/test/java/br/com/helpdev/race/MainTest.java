@@ -2,7 +2,7 @@ package br.com.helpdev.race;
 
 import br.com.helpdev.race.application.ImporterFacade;
 import br.com.helpdev.race.application.importer.ImporterService;
-import br.com.helpdev.race.application.importer.command.ImportRaceByDateCommand;
+import br.com.helpdev.race.application.importer.dto.ImportRaceByDate;
 import br.com.helpdev.race.domain.race.LapRace;
 import br.com.helpdev.race.domain.race.PilotRace;
 import br.com.helpdev.race.domain.race.PilotTime;
@@ -13,14 +13,14 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-class Main {
+class MainTest {
 
     private final ImporterFacade importer = new ImporterService();
 
     @Test
     void showRacesFrom() {
         LocalDate localDate = LocalDate.of(2019, Month.JUNE, 18);
-        List<Race> races = importer.importRaces(new ImportRaceByDateCommand(localDate)).getRaces();
+        List<Race> races = importer.importRaces(new ImportRaceByDate(localDate)).getRaces();
         System.out.println("========= RACES FROM " + localDate.toString() + " =========");
         races.forEach(this::printRace);
     }

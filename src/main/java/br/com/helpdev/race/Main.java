@@ -2,8 +2,8 @@ package br.com.helpdev.race;
 
 import br.com.helpdev.race.application.ImporterFacade;
 import br.com.helpdev.race.application.importer.ImporterService;
-import br.com.helpdev.race.application.importer.command.ImportRaceByDateCommand;
-import br.com.helpdev.race.application.importer.command.RacesImportedCommandResult;
+import br.com.helpdev.race.application.importer.dto.ImportRaceByDate;
+import br.com.helpdev.race.application.importer.dto.RacesImported;
 import com.google.gson.Gson;
 
 import java.time.LocalDate;
@@ -19,7 +19,7 @@ public class Main {
     private final ImporterFacade importer = new ImporterService();
 
     private void showRacesFrom(LocalDate localDate) {
-        RacesImportedCommandResult races = importer.importRaces(new ImportRaceByDateCommand(localDate));
+        RacesImported races = importer.importRaces(new ImportRaceByDate(localDate));
         System.out.println(new Gson().toJson(races));
         System.out.println(races);
     }

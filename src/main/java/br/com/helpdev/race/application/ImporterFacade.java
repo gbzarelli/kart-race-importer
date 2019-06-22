@@ -1,8 +1,8 @@
 package br.com.helpdev.race.application;
 
-import br.com.helpdev.race.application.importer.command.ImportRaceByDateCommand;
-import br.com.helpdev.race.application.importer.command.RacesImportedCommandResult;
+import br.com.helpdev.race.application.importer.dto.ImportRaceByDate;
+import br.com.helpdev.race.application.importer.dto.RacesImported;
 
 public interface ImporterFacade {
-    RacesImportedCommandResult importRaces(ImportRaceByDateCommand command);
+    RacesImported importRaces(ImportRaceByDate command);
 }

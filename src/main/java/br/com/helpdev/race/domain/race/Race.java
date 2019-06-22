@@ -7,15 +7,19 @@ public class Race {
 
     private RaceId id;
     private String name;
-    private List<PilotRace> pilots;
+    private Map<PilotId, PilotRace> pilots;
     private Map<Integer, LapRace> laps;
     private LocalDate date;
 
     public Race(String name, LocalDate date) {
-        this.id = RaceId.getNewRaceID();
+        this(RaceId.getNewRaceID(), name, date);
+    }
+
+    public Race(RaceId raceId, String name, LocalDate date) {
+        this.id = raceId;
         this.name = name;
         this.date = date;
-        this.pilots = new ArrayList<>();
+        this.pilots = new HashMap<>();
         this.laps = new LinkedHashMap<>();
     }
 
@@ -30,7 +34,7 @@ public class Race {
     }
 
     void addPilot(PilotRace pilot) {
-        if (!pilots.contains(pilot)) pilots.add(pilot);
+        if (!pilots.containsKey(pilot.getPilotId())) pilots.put(pilot.getPilotId(), pilot);
     }
 
     public Map<Integer, LapRace> getLaps() {
@@ -51,14 +55,8 @@ public class Race {
     }
 
     public Pilot getWinner() {
-        //TODO CACHE
-        PilotId pilot = laps.get(laps.size()).getClassification().get(0).getPilot();
-        for (PilotRace pilotRace : pilots) {
-            if (pilotRace.getPilotId().equals(pilot)) {
-                return pilotRace;
-            }
-        }
-        return null;
+        PilotId pilotId = laps.get(laps.size()).getClassification().get(0).getPilot();
+        return pilots.get(pilotId);
     }
 
     public LocalDate getDate() {
@@ -69,7 +67,11 @@ public class Race {
         return name;
     }
 
-    public List<PilotRace> getPilots() {
-        return Collections.unmodifiableList(pilots);
+    public PilotRace getPilotRace(PilotId pilot) {
+        return pilots.get(pilot);
+    }
+
+    public Collection<PilotRace> getPilots() {
+        return Collections.unmodifiableCollection(pilots.values());
     }
 }

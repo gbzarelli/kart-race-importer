@@ -1,14 +1,14 @@
-package br.com.helpdev.race.application.importer.command;
+package br.com.helpdev.race.application.importer.dto;
 
-import br.com.helpdev.race.shared.command.Command;
+import br.com.helpdev.race.shared.dto.InputDTO;
 
 import java.time.LocalDate;
 
-public class ImportRaceByDateCommand extends Command {
+public class ImportRaceByDate extends InputDTO {
 
     private LocalDate localDate;
 
-    public ImportRaceByDateCommand(LocalDate localDate) {
+    public ImportRaceByDate(LocalDate localDate) {
         this.localDate = localDate;
     }
 
@@ -18,7 +18,7 @@ public class ImportRaceByDateCommand extends Command {
 
     @Override
     public String toString() {
-        return "ImportRaceByDateCommand{" +
+        return "ImportRaceByDate{" +
                 "localDate=" + localDate +
                 '}';
     }
