@@ -27,7 +27,8 @@ class MainTest {
     }
 
     private void printRace(RaceDTO raceDTO) {
-
+        System.out.println(raceDTO);
+        //TODO
     }
 
 }

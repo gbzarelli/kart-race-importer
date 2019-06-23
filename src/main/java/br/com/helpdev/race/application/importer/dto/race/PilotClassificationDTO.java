@@ -3,18 +3,10 @@ package br.com.helpdev.race.application.importer.dto.race;
 import java.util.Map;
 
 public class PilotClassificationDTO {
-    private int lapNumber;
+
     private PilotDTO pilot;
     private LapDTO lap;
     private Map<Integer,TimeToDTO> timeTo;
-
-    public int getLapNumber() {
-        return lapNumber;
-    }
-
-    public void setLapNumber(int lapNumber) {
-        this.lapNumber = lapNumber;
-    }
 
     public PilotDTO getPilot() {
         return pilot;
@@ -43,7 +35,6 @@ public class PilotClassificationDTO {
     @Override
     public String toString() {
         return "PilotClassificationDTO{" +
-                "lapNumber=" + lapNumber +
                 ", pilot=" + pilot +
                 ", lap=" + lap +
                 ", timeTo=" + timeTo +

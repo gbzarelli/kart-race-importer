@@ -1,23 +1,21 @@
 package br.com.helpdev.race.domain.race;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class LapRace {
 
     private int lapNumber;
-    private List<Classification> classification;
+    private Map<Integer, Classification> classification;
     private PilotTime faster;
 
     LapRace(int lapNumber) {
         this.lapNumber = lapNumber;
-        this.classification = new ArrayList<>();
+        this.classification = new LinkedHashMap<>();
     }
 
     void updateClassification(Pilot pilot, LapInfos lap) {
         int placeInRace = getNewPlaceInClassification();
-        classification.add(Classification.Builder.create(placeInRace, pilot, lap, getClassification()));
+        classification.put(classification.size() + 1, Classification.Builder.create(placeInRace, pilot, lap, getClassification()));
         verifyFaster(pilot, lap, placeInRace);
     }
 
@@ -34,8 +32,8 @@ public class LapRace {
         return faster;
     }
 
-    public List<Classification> getClassification() {
-        return Collections.unmodifiableList(classification);
+    public Map<Integer,Classification> getClassification() {
+        return Collections.unmodifiableMap(classification);
     }
 
     private int getNewPlaceInClassification() {

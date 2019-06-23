@@ -3,9 +3,7 @@ package br.com.helpdev.race.application.importer.dto.translate;
 import br.com.helpdev.race.application.importer.dto.RacesImported;
 import br.com.helpdev.race.application.importer.dto.race.*;
 import br.com.helpdev.race.domain.importer.Races;
-import br.com.helpdev.race.domain.race.LapRace;
-import br.com.helpdev.race.domain.race.Pilot;
-import br.com.helpdev.race.domain.race.Race;
+import br.com.helpdev.race.domain.race.*;
 import br.com.helpdev.race.shared.dto.OutputDTO;
 
 import java.util.LinkedHashMap;
@@ -17,7 +15,7 @@ public class ImportRaceDTOTranslate {
 
     public static RacesImported racesToCommandResult(Races races) {
         OutputDTO.Status status = getStatus(races);
-        RacesImported racesImported = new RacesImported(status, races.getLocalDate(), racesToRacesDTO(races.getRaces()));
+        RacesImported racesImported = new RacesImported(status, races.getLocalDate().toString(), racesToRacesDTO(races.getRaces()));
         racesImported.addNotifiable(racesImported);
         return racesImported;
     }
@@ -67,13 +65,13 @@ public class ImportRaceDTOTranslate {
         LapDTO lapDTO = new LapDTO();
         lapDTO.setNumberOfLap(lapRace.getLapNumber());
         lapDTO.setTime(lapRace.getFaster().getFormattedTime());
-        PilotDTO pilotDTO = getPilotDTO(lapRace.getFaster().getPilot());
+        PilotDTO pilotDTO = pilotToPilotDTO(lapRace.getFaster().getPilot());
         fasterDTO.setLap(lapDTO);
         fasterDTO.setPilot(pilotDTO);
         return fasterDTO;
     }
 
-    private static PilotDTO getPilotDTO(Pilot pilot) {
+    private static PilotDTO pilotToPilotDTO(Pilot pilot) {
         PilotDTO pilotDTO = new PilotDTO();
         pilotDTO.setName(pilot.getName());
         pilotDTO.setNumber(pilot.getPilotId().getNumber());
@@ -82,14 +80,58 @@ public class ImportRaceDTOTranslate {
 
     private static Map<Integer, PilotClassificationDTO> fillLapClassificationDTO(LapRace lapRace) {
         Map<Integer, PilotClassificationDTO> map = new LinkedHashMap<>();
-        //TODO
+        lapRace.getClassification().forEach((key, classification) ->
+                map.put(key, classificationToPilotClassificationDTO(lapRace.getLapNumber(), classification)));
         return map;
+    }
+
+    private static PilotClassificationDTO classificationToPilotClassificationDTO(int lapNumber, Classification classification) {
+        PilotClassificationDTO dto = new PilotClassificationDTO();
+        dto.setLap(lapInfoToLapDTO(lapNumber, classification.getLapInfos()));
+        dto.setPilot(pilotToPilotDTO(classification.getPilot()));
+        dto.setTimeTo(fillTimeToDTO(classification.getDiffTimes()));
+        return dto;
+    }
+
+    private static Map<Integer, TimeToDTO> fillTimeToDTO(Map<Integer, PilotTime> diffTimes) {
+        Map<Integer, TimeToDTO> dto = new LinkedHashMap<>();
+        diffTimes.forEach((key, pilotTime) ->
+                dto.put(key, pilotTimeToTimeToDTO(pilotTime)));
+        return dto;
+    }
+
+    private static TimeToDTO pilotTimeToTimeToDTO(PilotTime pilotTime) {
+        TimeToDTO dto = new TimeToDTO();
+        dto.setPilot(pilotToPilotDTO(pilotTime.getPilot()));
+        dto.setDiffTime(pilotTime.getFormattedTime());
+        dto.setPlaceInLap(pilotTime.getPlaceInRace());
+        return dto;
+    }
+
+    private static LapDTO lapInfoToLapDTO(int lapNumber, LapInfos lapInfos) {
+        LapDTO dto = new LapDTO();
+        dto.setTime(lapInfos.getTime().toString());
+        dto.setLapTime(lapInfos.getLapTime().toString());
+        dto.setAvgSpeed(lapInfos.getAvgSpeed());
+        dto.setNumberOfLap(lapNumber);
+        return dto;
     }
 
     private static Map<Integer, PilotFinishDTO> fillPilotFinishClassificationDTO(Race race) {
         Map<Integer, PilotFinishDTO> map = new LinkedHashMap<>();
-        //TODO
+        race.getLastLap().getClassification().forEach((pos, classification) -> {
+            map.put(pos, classificationToPilotFinishDTO(race, classification));
+        });
         return map;
+    }
+
+    private static PilotFinishDTO classificationToPilotFinishDTO(Race race, Classification classification) {
+        PilotFinishDTO dto = new PilotFinishDTO();
+        PilotRace pilotRace = race.getPilotRace(classification.getPilot().getPilotId());
+        dto.setAvgSpeed(pilotRace.getAvgSpeed());
+        dto.setBestLap(lapInfoToLapDTO(pilotRace.getBestLapNumber(), pilotRace.getBestLap()));
+        dto.setPilot(pilotToPilotDTO(pilotRace));
+        return dto;
     }
 
 

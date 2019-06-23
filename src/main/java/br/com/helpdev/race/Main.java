@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        main.showRacesFrom(LocalDate.of(2019, Month.JUNE, 18));
+        main.showRacesFrom(LocalDate.of(2019, Month.JUNE, 1));
     }
 
     private final ImporterFacade importer = new ImporterService();
@@ -21,6 +21,5 @@ public class Main {
     private void showRacesFrom(LocalDate localDate) {
         RacesImported races = importer.importRaces(new ImportRaceByDate(localDate));
         System.out.println(new Gson().toJson(races));
-        System.out.println(races);
     }
 }

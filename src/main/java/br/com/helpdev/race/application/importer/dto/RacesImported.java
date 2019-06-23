@@ -9,21 +9,21 @@ import java.util.List;
 
 public class RacesImported extends OutputDTO {
 
-    private LocalDate localDate;
+    private String date;
     private List<RaceDTO> races;
 
-    public RacesImported(Status status, LocalDate localDate, List<RaceDTO> races) {
+    public RacesImported(Status status, String date, List<RaceDTO> races) {
         super(status);
-        this.localDate = localDate;
+        this.date = date;
         this.races = races;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public List<RaceDTO> getRaces() {
@@ -32,5 +32,13 @@ public class RacesImported extends OutputDTO {
 
     public void setRaces(List<RaceDTO> races) {
         this.races = races;
+    }
+
+    @Override
+    public String toString() {
+        return "RacesImported{" +
+                "date='" + date + '\'' +
+                ", races=" + races +
+                '}';
     }
 }

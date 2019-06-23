@@ -33,6 +33,10 @@ public class PilotRace extends Pilot {
         return laps.get(bestLapNumber);
     }
 
+    public Integer getBestLapNumber() {
+        return bestLapNumber;
+    }
+
     public int getNumbersOfLaps() {
         return laps.size();
     }

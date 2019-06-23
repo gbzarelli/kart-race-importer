@@ -2,7 +2,7 @@ package br.com.helpdev.race.application.importer.dto.race;
 
 public class TimeToDTO {
     private int placeInLap;
-    private PilotDTO pilotDTO;
+    private PilotDTO pilot;
     private String diffTime;
 
     public int getPlaceInLap() {
@@ -13,12 +13,12 @@ public class TimeToDTO {
         this.placeInLap = placeInLap;
     }
 
-    public PilotDTO getPilotDTO() {
-        return pilotDTO;
+    public PilotDTO getPilot() {
+        return pilot;
     }
 
-    public void setPilotDTO(PilotDTO pilotDTO) {
-        this.pilotDTO = pilotDTO;
+    public void setPilot(PilotDTO pilot) {
+        this.pilot = pilot;
     }
 
     public String getDiffTime() {
@@ -33,7 +33,7 @@ public class TimeToDTO {
     public String toString() {
         return "TimeToDTO{" +
                 "placeInLap=" + placeInLap +
-                ", pilotDTO=" + pilotDTO +
+                ", pilot=" + pilot +
                 ", diffTime='" + diffTime + '\'' +
                 '}';
     }

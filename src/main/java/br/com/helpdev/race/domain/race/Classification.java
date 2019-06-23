@@ -1,21 +1,21 @@
 package br.com.helpdev.race.domain.race;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static br.com.helpdev.race.shared.utils.TimeUtils.getDiffInNano;
 
 public class Classification {
 
     static class Builder {
-        static Classification create(int placeInRace, Pilot pilot, LapInfos lap, List<Classification> listClassification) {
+        static Classification create(int placeInRace, Pilot pilot, LapInfos lap, Map<Integer,Classification> listClassification) {
             Classification classification = new Classification(placeInRace, pilot, lap);
             if (listClassification.isEmpty()) return classification;
 
-            for (Classification cls : listClassification) {
+            listClassification.forEach((position,cls)->{
                 PilotTime pilotTime = new PilotTime(cls.placeInRace, cls.pilot, getDiffInNano(lap.getLapTime(), cls.lap.getLapTime()));
-                classification.timeTo.add(pilotTime);
-            }
+                classification.timeTo.put(position,pilotTime);
+            });
+
             return classification;
         }
     }
@@ -23,13 +23,13 @@ public class Classification {
     private int placeInRace;
     private Pilot pilot;
     private LapInfos lap;
-    private List<PilotTime> timeTo;
+    private Map<Integer,PilotTime> timeTo;
 
     private Classification(int placeInRace, Pilot pilot, LapInfos lap) {
         this.placeInRace = placeInRace;
         this.pilot = pilot;
         this.lap = lap;
-        this.timeTo = new ArrayList<>();
+        this.timeTo = new LinkedHashMap<>();
     }
 
     public Pilot getPilot() {
@@ -46,7 +46,11 @@ public class Classification {
 
     public PilotTime getDiffTimeTo(int position) {
         if (timeTo.size() < position) return null;
-        return timeTo.get(position - 1);
+        return timeTo.get(position);
+    }
+
+    public Map<Integer, PilotTime> getDiffTimes() {
+        return Collections.unmodifiableMap(timeTo);
     }
 
     @Override
