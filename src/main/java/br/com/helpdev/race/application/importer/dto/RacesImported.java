@@ -8,12 +8,11 @@ import java.util.List;
 
 public class RacesImported extends OutputDTO {
 
-    //Poderia utilizar codigo e mensagem de sucesso ou falha.
-
     private LocalDate localDate;
     private List<Race> races;
 
-    public RacesImported(LocalDate localDate, List<Race> races) {
+    public RacesImported(Status status, LocalDate localDate, List<Race> races) {
+        super(status);
         this.localDate = localDate;
         this.races = races;
     }

@@ -14,10 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static br.com.helpdev.race.infrastructure.RaceResources.getPathLogRacesFolder;
@@ -30,20 +27,25 @@ public class RaceLogFileRepository implements RaceRepository {
 
     @Override
     public Races importRacesByDate(LocalDate localDate) {
+        Objects.requireNonNull(localDate);
+
         List<Race> races = new ArrayList<>();
+        Races racesReturn = Races.getRaces(races, localDate);
+
         try {
             Stream<Path> pathStream = getFilesByDate(getPathLogRacesFolder(), localDate);
             pathStream.parallel().forEach(path -> {
                 try {
                     races.add(getRaceFromPath(path, localDate));
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    racesReturn.addNotification("Não foi possível carregar arquivo {" + path.getFileName() + "}");
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
+            racesReturn.addNotification("Não foi possível carregar corridas, verifique o diretório de logs");
         }
-        return Races.getRaces(races, localDate);
+
+        return racesReturn;
     }
 
     private Race getRaceFromPath(Path path, LocalDate date) throws IOException {

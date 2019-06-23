@@ -29,6 +29,11 @@ class RaceLogFileRepositoryTest {
         assertImportRaces(1, date);
     }
 
+    @Test
+    void should_failed_when_null_input(){
+        Assertions.assertThrows(NullPointerException.class,()->{assertImportRaces(0,null);});
+    }
+
     private void assertImportRaces(int racesExpected, LocalDate date) {
         Races races = repository.importRacesByDate(date);
         Assertions.assertEquals(racesExpected, races.getRaces().size());

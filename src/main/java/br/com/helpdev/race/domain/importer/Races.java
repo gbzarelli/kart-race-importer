@@ -1,18 +1,17 @@
 package br.com.helpdev.race.domain.importer;
 
 import br.com.helpdev.race.domain.race.Race;
+import br.com.helpdev.race.shared.notification.Notifiable;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-public class Races {
+public class Races implements Notifiable {
 
     public static Races getRaces(List<Race> races, LocalDate localDate) {
-        return new Races(Collections.unmodifiableList(races), localDate);
+        return new Races(races, localDate);
     }
-
-    //Poderia agregar mensagens de erro, pensar em uma implementação pde Notifications.
 
     private LocalDate localDate;
     private List<Race> races;
@@ -23,10 +22,11 @@ public class Races {
     }
 
     public List<Race> getRaces() {
-        return races;
+        return Collections.unmodifiableList(races);
     }
 
     public LocalDate getLocalDate() {
         return localDate;
     }
+
 }

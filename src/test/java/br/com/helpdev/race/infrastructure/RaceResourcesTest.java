@@ -11,6 +11,6 @@ class RaceResourcesTest {
     @Test
     void getPathLogRacesFolder() {
         Path pathLogRacesFolder = RaceResources.getPathLogRacesFolder();
-        assertEquals("./races",pathLogRacesFolder.toString());
+        assertEquals("./races-test",pathLogRacesFolder.toString());
     }
 }

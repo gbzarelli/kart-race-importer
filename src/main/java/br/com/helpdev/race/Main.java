@@ -23,5 +23,4 @@ public class Main {
         System.out.println(new Gson().toJson(races));
         System.out.println(races);
     }
-
 }
