@@ -83,9 +83,9 @@ modelo podemos extrair diversas informações como:
 ## Endpoint
 
 Atualmente não criei um endpoint claro para esse projeto, como um REST ou algo
-do gênero. Mas para execução, criei uma `Main.java` na raiz do package
+do gênero. Mas para testar execução, criei uma `Main.java` na raiz do `package ('br.com.helpdev.race')` do projeto 
 para que possa ser feita a execução. A `Main` class cria uma instância
-do `ImporterService` e executa o `showRacesFrom(date)`, o resultado é
+do `ImporterService` e executa o `importRaces(date)`, o resultado é
 convertido para JSON para verificarmos como se fosse uma API. 
 
 ```java

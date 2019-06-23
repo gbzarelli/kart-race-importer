@@ -27,7 +27,7 @@ public class Race {
         return id;
     }
 
-    void updateLapRace(Integer lapNumber, PilotId pilot, LapInfos lap) {
+    void updateLapRace(Integer lapNumber, Pilot pilot, LapInfos lap) {
         LapRace lapRace = laps.getOrDefault(lapNumber, new LapRace(lapNumber));
         lapRace.updateClassification(pilot, lap);
         laps.put(lapNumber, lapRace);
@@ -52,11 +52,6 @@ public class Race {
 
     public int getNumbersOfLaps() {
         return laps.size();
-    }
-
-    public Pilot getWinner() {
-        PilotId pilotId = laps.get(laps.size()).getClassification().get(0).getPilot();
-        return pilots.get(pilotId);
     }
 
     public LocalDate getDate() {

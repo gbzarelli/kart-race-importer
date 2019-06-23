@@ -15,13 +15,13 @@ public class LapRace {
         this.classification = new ArrayList<>();
     }
 
-    void updateClassification(PilotId pilot, LapInfos lap) {
+    void updateClassification(Pilot pilot, LapInfos lap) {
         int placeInRace = getNewPlaceInClassification();
         classification.add(Classification.Builder.create(placeInRace, pilot, lap, getClassification()));
         verifyFaster(pilot, lap, placeInRace);
     }
 
-    private void verifyFaster(PilotId pilot, LapInfos lap, int placeInRace) {
+    private void verifyFaster(Pilot pilot, LapInfos lap, int placeInRace) {
         PilotTime pilotTime = new PilotTime(placeInRace, pilot, lap.getLapTime().toNanoOfDay());
         faster = pilotTime.getFasterThan(faster);
     }

@@ -8,7 +8,7 @@ import static br.com.helpdev.race.shared.utils.TimeUtils.getDiffInNano;
 public class Classification {
 
     static class Builder {
-        static Classification create(int placeInRace, PilotId pilot, LapInfos lap, List<Classification> listClassification) {
+        static Classification create(int placeInRace, Pilot pilot, LapInfos lap, List<Classification> listClassification) {
             Classification classification = new Classification(placeInRace, pilot, lap);
             if (listClassification.isEmpty()) return classification;
 
@@ -21,18 +21,18 @@ public class Classification {
     }
 
     private int placeInRace;
-    private PilotId pilot;
+    private Pilot pilot;
     private LapInfos lap;
     private List<PilotTime> timeTo;
 
-    private Classification(int placeInRace, PilotId pilot, LapInfos lap) {
+    private Classification(int placeInRace, Pilot pilot, LapInfos lap) {
         this.placeInRace = placeInRace;
         this.pilot = pilot;
         this.lap = lap;
         this.timeTo = new ArrayList<>();
     }
 
-    public PilotId getPilot() {
+    public Pilot getPilot() {
         return pilot;
     }
 

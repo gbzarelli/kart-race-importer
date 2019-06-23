@@ -5,11 +5,11 @@ import br.com.helpdev.race.shared.utils.TimeUtils;
 public class PilotTime {
 
     private Integer placeInRace;
-    private PilotId pilot;
+    private Pilot pilot;
     private long timeInNano;
     private String formattedTime;
 
-    PilotTime(Integer placeInRace, PilotId pilot, long timeInNano) {
+    PilotTime(Integer placeInRace, Pilot pilot, long timeInNano) {
         this.placeInRace = placeInRace;
         this.pilot = pilot;
         this.timeInNano = timeInNano;
@@ -20,7 +20,7 @@ public class PilotTime {
         return placeInRace;
     }
 
-    public PilotId getPilot() {
+    public Pilot getPilot() {
         return pilot;
     }
 
@@ -42,7 +42,7 @@ public class PilotTime {
     @Override
     public String toString() {
         return "PilotTime{" +
-                " pilot=" + getPilot().getNumber() +
+                " pilot=" + getPilot().getPilotId().getNumber() +
                 " time=" + getFormattedTime() +
                 '}';
     }

@@ -17,4 +17,9 @@ public class RaceId {
     public boolean equals(Object obj) {
         return obj instanceof RaceId && ((RaceId) obj).id.equals(this.id);
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
 }

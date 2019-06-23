@@ -20,7 +20,7 @@ public class PilotRace extends Pilot {
             int lapNumber = laps.size() + 1;
             laps.put(lapNumber, lap);
             verifyBestLap(lapNumber, lap);
-            race.updateLapRace(laps.size(), getPilotId(), lap);
+            race.updateLapRace(laps.size(), this, lap);
         };
     }
 
