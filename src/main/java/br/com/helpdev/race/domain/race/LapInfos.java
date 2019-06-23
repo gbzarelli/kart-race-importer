@@ -26,16 +26,8 @@ public class LapInfos {
         return lapInfos == null || lapTime.toNanoOfDay() < lapInfos.lapTime.toNanoOfDay();
     }
 
-    public void setLapTime(LocalTime lapTime) {
-        this.lapTime = lapTime;
-    }
-
     public Float getAvgSpeed() {
         return avgSpeed;
-    }
-
-    public void setAvgSpeed(Float avgSpeed) {
-        this.avgSpeed = avgSpeed;
     }
 
     @Override

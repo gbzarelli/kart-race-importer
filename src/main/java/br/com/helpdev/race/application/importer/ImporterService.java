@@ -12,6 +12,6 @@ public class ImporterService implements ImporterFacade {
     @Override
     public RacesImported importRaces(ImportRaceByDate command) {
         Races races = new Importer().getRaces().byDate(command.getLocalDate());
-        return ImportRaceDTOTranslate.racesToCommandResult(races);
+        return ImportRaceDTOTranslate.racesToRacesImported(races);
     }
 }

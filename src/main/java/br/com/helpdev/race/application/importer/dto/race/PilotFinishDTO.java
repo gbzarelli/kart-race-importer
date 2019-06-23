@@ -4,6 +4,15 @@ public class PilotFinishDTO {
     private PilotDTO pilot;
     private float avgSpeed;
     private LapDTO bestLap;
+    private String timeToFirst;
+
+    public String getTimeToFirst() {
+        return timeToFirst;
+    }
+
+    public void setTimeToFirst(String timeToFirst) {
+        this.timeToFirst = timeToFirst;
+    }
 
     public PilotDTO getPilot() {
         return pilot;
@@ -35,6 +44,7 @@ public class PilotFinishDTO {
                 "pilot=" + pilot +
                 ", avgSpeed=" + avgSpeed +
                 ", bestLap=" + bestLap +
+                ", timeToFirst='" + timeToFirst + '\'' +
                 '}';
     }
 }

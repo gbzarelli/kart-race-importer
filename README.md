@@ -57,10 +57,10 @@ e retornar uma lista de corridas importadas.
 Ao importar o arquivo, um modelo de corrida será gerado, através desse 
 modelo podemos extrair diversas informações como:
 
-- Pilotos na corrida:
-    - Todas as suas voltas.
-    - Volta mais rápida.
+- Classificação por piloto:
+    - Melhor volta.
     - Média de velocidade.
+    - Tempo para o primeiro.
 
 - Lista de voltas da corrida:
     - Numero da volta.
@@ -77,8 +77,7 @@ modelo podemos extrair diversas informações como:
     - Piloto mais rápido da volta:
         - Colocação na volta
         - Tempo
-
-( Outras estatísticas serão desenvolvidas posteriormente )
+        - Média de velocidade.
 
 ## Endpoint
 

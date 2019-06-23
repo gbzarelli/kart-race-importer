@@ -1,12 +1,13 @@
 package br.com.helpdev.race.domain.race;
 
+
 import java.util.*;
 
 public class LapRace {
 
     private int lapNumber;
     private Map<Integer, Classification> classification;
-    private PilotTime faster;
+    private FasterLap faster;
 
     LapRace(int lapNumber) {
         this.lapNumber = lapNumber;
@@ -21,18 +22,20 @@ public class LapRace {
 
     private void verifyFaster(Pilot pilot, LapInfos lap, int placeInRace) {
         PilotTime pilotTime = new PilotTime(placeInRace, pilot, lap.getLapTime().toNanoOfDay());
-        faster = pilotTime.getFasterThan(faster);
+        if (faster == null || pilotTime.isFasterThan(faster.getPilotTime())) {
+            faster = new FasterLap(pilot, pilotTime, lap);
+        }
     }
 
     public int getLapNumber() {
         return lapNumber;
     }
 
-    public PilotTime getFaster() {
+    public FasterLap getFaster() {
         return faster;
     }
 
-    public Map<Integer,Classification> getClassification() {
+    public Map<Integer, Classification> getClassification() {
         return Collections.unmodifiableMap(classification);
     }
 

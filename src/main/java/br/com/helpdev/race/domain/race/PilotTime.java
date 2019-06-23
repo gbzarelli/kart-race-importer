@@ -32,11 +32,8 @@ public class PilotTime {
         return formattedTime;
     }
 
-    PilotTime getFasterThan(PilotTime lastFaster) {
-        if (lastFaster == null || timeInNano < lastFaster.getTimeInNano()) {
-            return this;
-        }
-        return lastFaster;
+    boolean isFasterThan(PilotTime lastFaster) {
+        return timeInNano < lastFaster.getTimeInNano();
     }
 
     @Override

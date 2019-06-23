@@ -6,6 +6,7 @@ import br.com.helpdev.race.domain.importer.Races;
 import br.com.helpdev.race.domain.race.*;
 import br.com.helpdev.race.shared.dto.OutputDTO;
 
+import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class ImportRaceDTOTranslate {
 
-    public static RacesImported racesToCommandResult(Races races) {
+    public static RacesImported racesToRacesImported(Races races) {
         OutputDTO.Status status = getStatus(races);
         RacesImported racesImported = new RacesImported(status, races.getLocalDate().toString(), racesToRacesDTO(races.getRaces()));
         racesImported.addNotifiable(racesImported);
@@ -53,22 +54,22 @@ public class ImportRaceDTOTranslate {
     private static LapRaceDTO lapRaceToLapRaceDTO(LapRace lapRace) {
         LapRaceDTO lapRaceDTO = new LapRaceDTO();
         lapRaceDTO.setLapNumber(lapRace.getLapNumber());
-        PilotFasterDTO fasterDTO = getPilotFasterDTO(lapRace);
-        lapRaceDTO.setFaster(fasterDTO);
+        lapRaceDTO.setFaster(getPilotFasterDTO(lapRace));
         lapRaceDTO.setLapClassification(fillLapClassificationDTO(lapRace));
         return lapRaceDTO;
     }
 
 
     private static PilotFasterDTO getPilotFasterDTO(LapRace lapRace) {
-        PilotFasterDTO fasterDTO = new PilotFasterDTO();
+        PilotFasterDTO dto = new PilotFasterDTO();
         LapDTO lapDTO = new LapDTO();
+        FasterLap faster = lapRace.getFaster();
         lapDTO.setNumberOfLap(lapRace.getLapNumber());
-        lapDTO.setTime(lapRace.getFaster().getFormattedTime());
-        PilotDTO pilotDTO = pilotToPilotDTO(lapRace.getFaster().getPilot());
-        fasterDTO.setLap(lapDTO);
-        fasterDTO.setPilot(pilotDTO);
-        return fasterDTO;
+        lapDTO.setTime(faster.getPilotTime().getFormattedTime());
+        lapDTO.setAvgSpeed(faster.getLapInfos().getAvgSpeed());
+        dto.setPilot(pilotToPilotDTO(faster.getPilot()));
+        dto.setLap(lapDTO);
+        return dto;
     }
 
     private static PilotDTO pilotToPilotDTO(Pilot pilot) {
@@ -131,6 +132,12 @@ public class ImportRaceDTOTranslate {
         dto.setAvgSpeed(pilotRace.getAvgSpeed());
         dto.setBestLap(lapInfoToLapDTO(pilotRace.getBestLapNumber(), pilotRace.getBestLap()));
         dto.setPilot(pilotToPilotDTO(pilotRace));
+
+        LapInfos winner = race.getLastLap().getClassification().get(1).getLapInfos();
+        LapInfos lapInfos = classification.getLapInfos();
+        dto.setTimeToFirst(
+                LocalTime.ofNanoOfDay(lapInfos.getTime().toNanoOfDay()-winner.getTime().toNanoOfDay()).toString()
+        );
         return dto;
     }
 
