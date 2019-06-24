@@ -54,14 +54,14 @@ public class ImportRaceDTOTranslate {
     private static LapRaceDTO lapRaceToLapRaceDTO(LapRace lapRace) {
         LapRaceDTO lapRaceDTO = new LapRaceDTO();
         lapRaceDTO.setLapNumber(lapRace.getLapNumber());
-        lapRaceDTO.setFaster(getPilotFasterDTO(lapRace));
+        lapRaceDTO.setFaster(getFasterPilotDTO(lapRace));
         lapRaceDTO.setLapClassification(fillLapClassificationDTO(lapRace));
         return lapRaceDTO;
     }
 
 
-    private static PilotFasterDTO getPilotFasterDTO(LapRace lapRace) {
-        PilotFasterDTO dto = new PilotFasterDTO();
+    private static FasterPilotDTO getFasterPilotDTO(LapRace lapRace) {
+        FasterPilotDTO dto = new FasterPilotDTO();
         LapDTO lapDTO = new LapDTO();
         FasterLap faster = lapRace.getFaster();
         lapDTO.setNumberOfLap(lapRace.getLapNumber());

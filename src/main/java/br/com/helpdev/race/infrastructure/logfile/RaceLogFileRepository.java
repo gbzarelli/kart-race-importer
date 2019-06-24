@@ -77,7 +77,7 @@ public class RaceLogFileRepository implements RaceRepository {
     }
 
     private Stream<Path> getFilesByDate(Path root, LocalDate localDate) throws IOException {
-        String formatterDate = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN_YYYYMMMDD).format(localDate);
-        return Files.list(root).filter(filter -> filter.getFileName().toString().startsWith(formatterDate));
+        String formattedDate = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN_YYYYMMMDD).format(localDate);
+        return Files.list(root).filter(filter -> filter.getFileName().toString().startsWith(formattedDate));
     }
 }

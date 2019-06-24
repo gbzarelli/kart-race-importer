@@ -1,6 +1,6 @@
 package br.com.helpdev.race.application.importer.dto.race;
 
-public class PilotFasterDTO {
+public class FasterPilotDTO {
     private PilotDTO pilot;
     private LapDTO lap;
 
@@ -22,7 +22,7 @@ public class PilotFasterDTO {
 
     @Override
     public String toString() {
-        return "PilotFasterDTO{" +
+        return "FasterPilotDTO{" +
                 "pilot=" + pilot +
                 ", lap=" + lap +
                 '}';

@@ -5,7 +5,7 @@ import java.util.Map;
 public class LapRaceDTO {
     private int lapNumber;
     private Map<Integer, PilotClassificationDTO> lapClassification;
-    private PilotFasterDTO faster;
+    private FasterPilotDTO faster;
 
     public int getLapNumber() {
         return lapNumber;
@@ -23,11 +23,11 @@ public class LapRaceDTO {
         this.lapClassification = lapClassification;
     }
 
-    public PilotFasterDTO getFaster() {
+    public FasterPilotDTO getFaster() {
         return faster;
     }
 
-    public void setFaster(PilotFasterDTO faster) {
+    public void setFaster(FasterPilotDTO faster) {
         this.faster = faster;
     }
 

@@ -2,7 +2,7 @@ package br.com.helpdev.race.shared.dto;
 
 import br.com.helpdev.race.shared.notification.Notifiable;
 
-public abstract class OutputDTO implements Notifiable {
+public abstract class OutputDTO extends Notifiable {
 
     public enum Status {
         SUCCESS, ERROR

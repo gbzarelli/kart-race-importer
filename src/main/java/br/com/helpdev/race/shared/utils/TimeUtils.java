@@ -1,5 +1,7 @@
 package br.com.helpdev.race.shared.utils;
 
+import br.com.helpdev.race.shared.notification.Notifiable;
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 

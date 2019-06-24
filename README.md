@@ -2,25 +2,25 @@
 
 # Kart Race Importer [![CircleCI](https://circleci.com/gh/gbzarelli/kart-race-importer.svg?style=svg)](https://circleci.com/gh/gbzarelli/kart-race-importer)
 
-O 'Kart Race Importer' é um projeto para importação de dados mantidos
-em arquivos de Log. Esses arquivos contém informações de uma corrida
-de kart, mantidas em um formato estrutural de 'voltas', aonde cada volta
-contém informações do piloto, tempo, volta e velocidade. A ideia do
-projeto e transcrever essas informações em dados complexos, que nos 
-permitam visualizar informações estatísticas sobre a corrida.
+The 'Kart Race Importer' is a project to import data held
+in log files. These files contain information about a race
+of kart, kept in a structural format of 'laps', where each lap
+contains pilot information, time, lap and speed. The idea of
+project and transcribe this information into complex data, which
+statistical information about the race.
 
-## Dados para importação
+## Data for import
 
-A pasta dos dados a serem importados está configurada no arquivo
-`application.properties` que fica armazenada no pasta resources do projeto
-`(src/main/resources)`, todo arquivo de corrida deve seguir um padrão 
-de nome para que a importação reconheça os arquivos, começando com ano, mês 
-e dia tudo junto.
+The data folder to be imported is configured in the
+`application.properties` that is stored in the project resources folder
+`(src / main / resources)`, every Race file must follow a pattern
+name so that the import recognizes the files, starting with year, month
+and day all together.
 
-Segue um exemplo de arquivo a ser importado:
+Here's an example of a file to import:
 
 ```text
-Hora                               Piloto             Nº Volta   Tempo Volta       Velocidade média da volta
+Hour                               Pilot               No. Lap  Lap Time             Average lap speed
 23:49:08.277      038 – F.MASSA                           1		1:02.852                        44,275
 23:49:10.858      033 – R.BARRICHELLO                     1		1:04.352                        43,243
 23:49:11.075      002 – K.RAIKKONEN                       1		1:04.108                        43,408
@@ -46,46 +46,48 @@ Hora                               Piloto             Nº Volta   Tempo Volta   
 23:54:57.757      011 – S.VETTEL                          3		1:18.097                        35,633
 ```
 
-## Importação
+## Import
 
-No modelo atual de importação, podemos passar uma data específica (Dia, Mês
-e Ano) e o sistema irá buscar na pasta configurada as corridas daquela data
-e retornar uma lista de corridas importadas.
+In the current import model, we can pass a specific date (Day, Month, Year) 
+and the system will fetch the edited folder the races of that date and 
+return a list of imported races.
 
-## Modelo de importação
+## Import Model
 
-Ao importar o arquivo, um modelo de corrida será gerado, através desse 
-modelo podemos extrair diversas informações como:
+When importing the file, a race model will be generated, through this 
+model we can extract various information such as:
 
-- Classificação por piloto:
-    - Melhor volta.
-    - Média de velocidade.
-    - Tempo para o primeiro.
+- Classification by driver:
+     - Best lap.
+     - Average speed.
+     - Time for the first.
 
-- Lista de voltas da corrida:
-    - Numero da volta.
-    - Classificação da volta por piloto:
-        - Colocação na volta
-        - Informação da volta:
-            - Horário.
-            - Tempo de volta.
-            - Média de velocidade.
-        - Lista com a diferença de tempo para cada piloto a sua frente na volta.
-            - Piloto
-            - Colocação na volta
-            - Tempo
-    - Piloto mais rápido da volta:
-        - Colocação na volta
-        - Tempo
-        - Média de velocidade.
+- List of laps of the race:
+     - Number of the return.
+     - Classification of the return by pilot:
+         - Placement on lap
+         - Lap Information:
+             - Time.
+             - Lap time.
+             - Average speed.
+         - List the time difference for each rider ahead of you on the lap.
+             Pilot
+             - Placement on lap
+             - Time
+     - Faster lap pilot:
+         - Placement on lap
+         - Time
+         - Average speed.
 
-## Endpoint
+## Entry Point
 
-Atualmente não criei um endpoint claro para esse projeto, como um REST ou algo
-do gênero. Mas para testar execução, criei uma `Main.java` na raiz do `package ('br.com.helpdev.race')` do projeto 
-para que possa ser feita a execução. A `Main` class cria uma instância
-do `ImporterService` e executa o `importRaces(date)`, o resultado é
-convertido para JSON para verificarmos como se fosse uma API. 
+Currently I have not created a clear entry point for this project, 
+such as a REST or something like that. But to test execution, 
+I have created a `Main.java` in the root of the `package ('br.com.helpdev.race')`
+of the project so that execution can be done.
+
+The `Main` class creates an instance of `ImporterService` and 
+executes `importRaces(date)`, the result is converted to JSON to verify it as an API.
 
 ```java
 public class Main {
@@ -105,13 +107,13 @@ public class Main {
 }
 ```
 
-## Nota
+## Notes
 
-O projeto tem diversos pontos que poderia utilizar recursos como
-injeção de dependências e bibliotecas que 
-facilitariam o desenvolvimento, porém, o projeto foi desenvolvido com 
-a idéia de utilizar os próprios recursos da linguagem com o mínimo 
-possível de dependências externas.
+The project has several points that could use resources such as
+injection of dependencies and libraries that however, the project was developed with
+the idea of using the language's own resources with the minimum possible 
+external dependencies.
 
-## Licença
+## Licence
+
 [MIT](https://choosealicense.com/licenses/mit/)
