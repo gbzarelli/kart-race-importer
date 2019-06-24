@@ -58,26 +58,26 @@ When importing the file, a race model will be generated, through this
 model we can extract various information such as:
 
 - Classification by driver:
-     - Best lap.
-     - Average speed.
-     - Time for the first.
+    - Best lap.
+    - Average speed.
+    - Time for the first.
 
 - List of laps of the race:
-     - Number of the return.
-     - Classification of the return by pilot:
-         - Placement on lap
-         - Lap Information:
-             - Time.
-             - Lap time.
-             - Average speed.
-         - List the time difference for each rider ahead of you on the lap.
-             Pilot
-             - Placement on lap
-             - Time
-     - Faster lap pilot:
-         - Placement on lap
-         - Time
-         - Average speed.
+    - Number of the lap.
+    - Classification of the lap by pilot:
+        - Placement on lap
+        - Lap Information:
+            - Time.
+            - Lap time.
+            - Average speed.
+        - List the time difference for each rider ahead of you on the lap.
+            - Pilot
+            - Placement on lap
+            - Time
+    - Faster lap pilot:
+        - Placement on lap
+        - Time
+        - Average speed.
 
 ## Entry Point
 
