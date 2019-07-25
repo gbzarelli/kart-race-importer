@@ -1,5 +1,6 @@
 package br.com.helpdev.race.domain.race;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class RaceId {
@@ -16,6 +17,11 @@ public class RaceId {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof RaceId && ((RaceId) obj).id.equals(this.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override

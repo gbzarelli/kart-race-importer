@@ -8,11 +8,13 @@ import java.util.Properties;
 
 public class RaceResources {
 
-    public static final String KEY_LOG_RACES_FOLDER = "log.races.folder";
+    private RaceResources() {
+    }
+
+    private static final String APPLICATION_PROPERTIES = "application.properties";
+    private static final String KEY_LOG_RACES_FOLDER = "log.races.folder";
     private static Properties properties;
-
-    public static final String APPLICATION_PROPERTIES = "application.properties";
-
+    
     static {
         properties = new Properties();
         try {

@@ -4,10 +4,13 @@ import br.com.helpdev.race.domain.race.*;
 import br.com.helpdev.race.infrastructure.logfile.entities.LapEntity;
 import br.com.helpdev.race.infrastructure.logfile.entities.PilotEntity;
 
-class RaceTranslate {
+class RaceMapper {
 
-    static LapInfos getLapInfoFromLapEntity(LapEntity translate) {
-        return new LapInfos(translate.getTime(), translate.getLapTime(), translate.getSpeedAvg());
+    private RaceMapper() {
+    }
+
+    static LapInfos getLapInfoFromLapEntity(LapEntity entity) {
+        return new LapInfos(entity.getTime(), entity.getLapTime(), entity.getSpeedAvg());
     }
 
     static PilotRace getPilotRaceFromPilotEntity(Race race, PilotEntity pilotEntity) {

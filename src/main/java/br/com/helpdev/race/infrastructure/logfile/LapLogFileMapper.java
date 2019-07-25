@@ -10,12 +10,12 @@ import java.util.regex.Pattern;
 
 import static br.com.helpdev.race.shared.utils.TimeUtils.convertToLocalTime;
 
-class LapLogFileTranslate {
+class LapLogFileMapper {
 
-    private LapLogFileTranslate() {
+    private LapLogFileMapper() {
     }
 
-    static LapEntity translate(String input) {
+    static LapEntity parse(String input) {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
         String[] split = input.split("\\s+");
 

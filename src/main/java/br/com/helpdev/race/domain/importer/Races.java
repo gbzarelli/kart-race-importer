@@ -14,15 +14,15 @@ public class Races extends Notifiable {
     }
 
     private LocalDate localDate;
-    private List<Race> races;
+    private List<Race> items;
 
-    private Races(List<Race> races, LocalDate localDate) {
-        this.races = races;
+    private Races(List<Race> items, LocalDate localDate) {
+        this.items = items;
         this.localDate = localDate;
     }
 
     public List<Race> getRaces() {
-        return Collections.unmodifiableList(races);
+        return Collections.unmodifiableList(items);
     }
 
     public LocalDate getLocalDate() {

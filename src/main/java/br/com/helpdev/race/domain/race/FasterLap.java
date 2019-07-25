@@ -6,7 +6,7 @@ public class FasterLap {
     private PilotTime pilotTime;
     private LapInfos lapInfos;
 
-    public FasterLap(Pilot pilot, PilotTime pilotTime, LapInfos lapInfos) {
+    FasterLap(Pilot pilot, PilotTime pilotTime, LapInfos lapInfos) {
         this.pilot = pilot;
         this.pilotTime = pilotTime;
         this.lapInfos = lapInfos;

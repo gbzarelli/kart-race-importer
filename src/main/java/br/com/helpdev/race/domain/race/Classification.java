@@ -7,13 +7,17 @@ import static br.com.helpdev.race.shared.utils.TimeUtils.getDiffInNano;
 public class Classification {
 
     static class Builder {
-        static Classification create(int placeInRace, Pilot pilot, LapInfos lap, Map<Integer,Classification> listClassification) {
+
+        private Builder() {
+        }
+
+        static Classification create(int placeInRace, Pilot pilot, LapInfos lap, Map<Integer, Classification> listClassification) {
             Classification classification = new Classification(placeInRace, pilot, lap);
             if (listClassification.isEmpty()) return classification;
 
-            listClassification.forEach((position,cls)->{
+            listClassification.forEach((position, cls) -> {
                 PilotTime pilotTime = new PilotTime(cls.placeInRace, cls.pilot, getDiffInNano(lap.getLapTime(), cls.lap.getLapTime()));
-                classification.timeTo.put(position,pilotTime);
+                classification.timeTo.put(position, pilotTime);
             });
 
             return classification;
@@ -23,7 +27,7 @@ public class Classification {
     private int placeInRace;
     private Pilot pilot;
     private LapInfos lap;
-    private Map<Integer,PilotTime> timeTo;
+    private Map<Integer, PilotTime> timeTo;
 
     private Classification(int placeInRace, Pilot pilot, LapInfos lap) {
         this.placeInRace = placeInRace;

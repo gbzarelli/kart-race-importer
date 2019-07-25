@@ -5,9 +5,10 @@
 The 'Kart Race Importer' is a project to import data held
 in log files. These files contain information about a race
 of kart, kept in a structural format of 'laps', where each lap
-contains pilot information, time, lap and speed. The idea of
-project and transcribe this information into complex data, which
-statistical information about the race.
+contains pilot information, time, lap and speed. The idea of the 
+project is to transcribe this information into complex data and 
+statistical information about a race. Java has been used as the 
+programming language with as few external dependencies as possible.
 
 ## Data for import
 
@@ -111,8 +112,8 @@ public class Main {
 
 The project has several points that could use resources such as
 injection of dependencies and libraries that however, the project was developed with
-the idea of using the language's own resources with the minimum possible 
-external dependencies.
+the idea of using the language's own resources with the **minimum possible 
+external dependencies**.
 
 ## Licence
 

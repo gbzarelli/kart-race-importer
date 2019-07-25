@@ -18,8 +18,8 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static br.com.helpdev.race.infrastructure.RaceResources.getPathLogRacesFolder;
-import static br.com.helpdev.race.infrastructure.logfile.RaceTranslate.getLapInfoFromLapEntity;
-import static br.com.helpdev.race.infrastructure.logfile.RaceTranslate.getPilotRaceFromPilotEntity;
+import static br.com.helpdev.race.infrastructure.logfile.RaceMapper.getLapInfoFromLapEntity;
+import static br.com.helpdev.race.infrastructure.logfile.RaceMapper.getPilotRaceFromPilotEntity;
 
 public class RaceLogFileRepository implements RaceRepository {
 
@@ -61,13 +61,13 @@ public class RaceLogFileRepository implements RaceRepository {
 
         while (bis.ready()) {
             String line = bis.readLine();
-            LapEntity translate = LapLogFileTranslate.translate(line);
-            PilotRace pilot = pilots.get(translate.getPilot().getNumber());
+            LapEntity entity = LapLogFileMapper.parse(line);
+            PilotRace pilot = pilots.get(entity.getPilot().getNumber());
             if (pilot == null) {
-                pilot = getPilotRaceFromPilotEntity(race, translate.getPilot());
+                pilot = getPilotRaceFromPilotEntity(race, entity.getPilot());
                 pilots.put(pilot.getPilotId().getNumber(), pilot);
             }
-            pilot.newLap(getLapInfoFromLapEntity(translate)).toRace(race);
+            pilot.newLap(getLapInfoFromLapEntity(entity)).toRace(race);
         }
     }
 

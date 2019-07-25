@@ -1,4 +1,4 @@
-package br.com.helpdev.race.application.importer.dto.translate;
+package br.com.helpdev.race.application.importer.dto.mapper;
 
 import br.com.helpdev.race.application.importer.dto.RacesImported;
 import br.com.helpdev.race.application.importer.dto.race.*;
@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ImportRaceDTOTranslate {
+public class ImportRaceDTOMapper {
+
+    private ImportRaceDTOMapper() {
+    }
 
     public static RacesImported racesToRacesImported(Races races) {
         OutputDTO.Status status = getStatus(races);
@@ -29,12 +32,12 @@ public class ImportRaceDTOTranslate {
         return status;
     }
 
-    public static List<RaceDTO> racesToRacesDTO(List<Race> races) {
-        return races.parallelStream().map(ImportRaceDTOTranslate::raceToRaceDTO)
+    private static List<RaceDTO> racesToRacesDTO(List<Race> races) {
+        return races.parallelStream().map(ImportRaceDTOMapper::raceToRaceDTO)
                 .collect(Collectors.toList());
     }
 
-    public static RaceDTO raceToRaceDTO(Race race) {
+    private static RaceDTO raceToRaceDTO(Race race) {
         RaceDTO raceDTO = new RaceDTO();
         raceDTO.setName(race.getRaceName());
         raceDTO.setRaceId(race.getRaceId().toString());
@@ -136,7 +139,7 @@ public class ImportRaceDTOTranslate {
         LapInfos winner = race.getLastLap().getClassification().get(1).getLapInfos();
         LapInfos lapInfos = classification.getLapInfos();
         dto.setTimeToFirst(
-                LocalTime.ofNanoOfDay(lapInfos.getTime().toNanoOfDay()-winner.getTime().toNanoOfDay()).toString()
+                LocalTime.ofNanoOfDay(lapInfos.getTime().toNanoOfDay() - winner.getTime().toNanoOfDay()).toString()
         );
         return dto;
     }
