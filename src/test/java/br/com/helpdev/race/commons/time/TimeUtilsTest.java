@@ -10,16 +10,16 @@ class TimeUtilsTest {
 
     @Test
     void formatNanoTimeToTime() {
-        LocalTime of = LocalTime.of(1, 10, 20, 422);
-        String timeFormatted = TimeUtils.formatNanoTime(of.toNanoOfDay());
+        final var of = LocalTime.of(1, 10, 20, 422);
+        final var timeFormatted = TimeUtils.formatNanoTime(of.toNanoOfDay());
         assertEquals(of.toString(), timeFormatted);
     }
 
     @Test
     void formatNegativeNanoTimeToTime() {
-        LocalTime of = LocalTime.of(1, 55, 20, 422);
-        long time = of.toNanoOfDay() * -1;
-        String timeFormatted = TimeUtils.formatNanoTime(time);
+        final var of = LocalTime.of(1, 55, 20, 422);
+        final var time = of.toNanoOfDay() * -1;
+        final var timeFormatted = TimeUtils.formatNanoTime(time);
         assertEquals("-" + of.toString(), timeFormatted);
     }
 }
