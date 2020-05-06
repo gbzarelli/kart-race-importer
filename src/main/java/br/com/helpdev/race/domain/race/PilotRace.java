@@ -2,29 +2,30 @@ package br.com.helpdev.race.domain.race;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class PilotRace extends Pilot {
 
-    private RaceId race;
-    private Map<Integer, LapInfos> laps;
+    private final RaceId race;
+    private final Map<Integer, LapInfos> laps;
     private Integer bestLapNumber;
 
-    PilotRace(RaceId race, Pilot pilot) {
+    PilotRace(final RaceId race, final Pilot pilot) {
         super(pilot.getPilotId(), pilot.getName());
         this.race = race;
         this.laps = new LinkedHashMap<>();
     }
 
-    public ToRace newLap(LapInfos lap) {
+    public ToRace newLap(final LapInfos lap) {
         return race -> {
-            int lapNumber = laps.size() + 1;
+            final var lapNumber = laps.size() + 1;
             laps.put(lapNumber, lap);
-            verifyBestLap(lapNumber, lap);
+            setBestLap(lapNumber, lap);
             race.updateLapRace(laps.size(), this, lap);
         };
     }
 
-    private void verifyBestLap(int lapNumber, LapInfos lap) {
+    private void setBestLap(final int lapNumber, final LapInfos lap) {
         if (lap.bestOf(laps.get(bestLapNumber))) bestLapNumber = lapNumber;
     }
 
@@ -42,7 +43,7 @@ public class PilotRace extends Pilot {
     }
 
     public Float getAvgSpeed() {
-        Float x = 0.0f;
+        var x = 0.0f;
         for (LapInfos lapInfo : laps.values()) {
             x += lapInfo.getAvgSpeed();
         }
@@ -55,7 +56,22 @@ public class PilotRace extends Pilot {
 
     @FunctionalInterface
     public interface ToRace {
-        void toRace(Race race);
+        void toRace(final Race race);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        PilotRace pilotRace = (PilotRace) o;
+        return Objects.equals(race, pilotRace.race) &&
+                Objects.equals(laps, pilotRace.laps);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), race, laps);
     }
 
     @Override

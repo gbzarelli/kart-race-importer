@@ -4,7 +4,7 @@ import br.com.helpdev.race.application.importer.dto.RacesImported;
 import br.com.helpdev.race.application.importer.dto.race.*;
 import br.com.helpdev.race.domain.importer.Races;
 import br.com.helpdev.race.domain.race.*;
-import br.com.helpdev.race.shared.dto.OutputDTO;
+import br.com.helpdev.race.application.importer.dto.AbstractResponseDTO;
 
 import java.time.LocalTime;
 import java.util.LinkedHashMap;
@@ -17,28 +17,28 @@ public class ImportRaceDTOMapper {
     private ImportRaceDTOMapper() {
     }
 
-    public static RacesImported racesToRacesImported(Races races) {
-        OutputDTO.Status status = getStatus(races);
-        RacesImported racesImported = new RacesImported(status, races.getLocalDate().toString(), racesToRacesDTO(races.getRaces()));
+    public static RacesImported racesToRacesImported(final Races races) {
+        final var status = getStatus(races);
+        final var racesImported = new RacesImported(status, races.getLocalDate().toString(), racesToRacesDTO(races.getRaces()));
         racesImported.addNotifiable(racesImported);
         return racesImported;
     }
 
-    private static OutputDTO.Status getStatus(Races races) {
-        OutputDTO.Status status = OutputDTO.Status.SUCCESS;
+    private static AbstractResponseDTO.Status getStatus(final Races races) {
+        var status = AbstractResponseDTO.Status.SUCCESS;
         if (!races.isValid() && races.getRaces().isEmpty()) {
-            status = OutputDTO.Status.ERROR;
+            status = AbstractResponseDTO.Status.ERROR;
         }
         return status;
     }
 
-    private static List<RaceDTO> racesToRacesDTO(List<Race> races) {
+    private static List<RaceDTO> racesToRacesDTO(final List<Race> races) {
         return races.parallelStream().map(ImportRaceDTOMapper::raceToRaceDTO)
                 .collect(Collectors.toList());
     }
 
-    private static RaceDTO raceToRaceDTO(Race race) {
-        RaceDTO raceDTO = new RaceDTO();
+    private static RaceDTO raceToRaceDTO(final Race race) {
+        final var raceDTO = new RaceDTO();
         raceDTO.setName(race.getRaceName());
         raceDTO.setRaceId(race.getRaceId().toString());
         raceDTO.setNumbersOfLaps(race.getNumbersOfLaps());
@@ -48,14 +48,14 @@ public class ImportRaceDTOMapper {
         return raceDTO;
     }
 
-    private static Map<Integer, LapRaceDTO> fillLapsRace(Race race) {
-        Map<Integer, LapRaceDTO> map = new LinkedHashMap<>();
+    private static Map<Integer, LapRaceDTO> fillLapsRace(final Race race) {
+        final var map = new LinkedHashMap<Integer, LapRaceDTO>();
         race.getLaps().forEach((key, lapRace) -> map.put(key, lapRaceToLapRaceDTO(lapRace)));
         return map;
     }
 
-    private static LapRaceDTO lapRaceToLapRaceDTO(LapRace lapRace) {
-        LapRaceDTO lapRaceDTO = new LapRaceDTO();
+    private static LapRaceDTO lapRaceToLapRaceDTO(final LapRace lapRace) {
+        final var lapRaceDTO = new LapRaceDTO();
         lapRaceDTO.setLapNumber(lapRace.getLapNumber());
         lapRaceDTO.setFaster(getFasterPilotDTO(lapRace));
         lapRaceDTO.setLapClassification(fillLapClassificationDTO(lapRace));
@@ -63,10 +63,10 @@ public class ImportRaceDTOMapper {
     }
 
 
-    private static FasterPilotDTO getFasterPilotDTO(LapRace lapRace) {
-        FasterPilotDTO dto = new FasterPilotDTO();
-        LapDTO lapDTO = new LapDTO();
-        FasterLap faster = lapRace.getFaster();
+    private static FasterPilotDTO getFasterPilotDTO(final LapRace lapRace) {
+        final var dto = new FasterPilotDTO();
+        final var lapDTO = new LapDTO();
+        final var faster = lapRace.getFaster();
         lapDTO.setNumberOfLap(lapRace.getLapNumber());
         lapDTO.setTime(faster.getPilotTime().getFormattedTime());
         lapDTO.setAvgSpeed(faster.getLapInfos().getAvgSpeed());
@@ -75,22 +75,22 @@ public class ImportRaceDTOMapper {
         return dto;
     }
 
-    private static PilotDTO pilotToPilotDTO(Pilot pilot) {
-        PilotDTO pilotDTO = new PilotDTO();
+    private static PilotDTO pilotToPilotDTO(final Pilot pilot) {
+        final var pilotDTO = new PilotDTO();
         pilotDTO.setName(pilot.getName());
         pilotDTO.setNumber(pilot.getPilotId().getNumber());
         return pilotDTO;
     }
 
-    private static Map<Integer, PilotClassificationDTO> fillLapClassificationDTO(LapRace lapRace) {
-        Map<Integer, PilotClassificationDTO> map = new LinkedHashMap<>();
+    private static Map<Integer, PilotClassificationDTO> fillLapClassificationDTO(final LapRace lapRace) {
+        final var map = new LinkedHashMap<Integer, PilotClassificationDTO>();
         lapRace.getClassification().forEach((key, classification) ->
                 map.put(key, classificationToPilotClassificationDTO(lapRace.getLapNumber(), classification)));
         return map;
     }
 
-    private static PilotClassificationDTO classificationToPilotClassificationDTO(int lapNumber, Classification classification) {
-        PilotClassificationDTO dto = new PilotClassificationDTO();
+    private static PilotClassificationDTO classificationToPilotClassificationDTO(final int lapNumber, final Classification classification) {
+        final var dto = new PilotClassificationDTO();
         dto.setLap(lapInfoToLapDTO(lapNumber, classification.getLapInfos()));
         dto.setPilot(pilotToPilotDTO(classification.getPilot()));
         dto.setTimeTo(fillTimeToDTO(classification.getDiffTimes()));
@@ -98,14 +98,14 @@ public class ImportRaceDTOMapper {
     }
 
     private static Map<Integer, TimeToDTO> fillTimeToDTO(Map<Integer, PilotTime> diffTimes) {
-        Map<Integer, TimeToDTO> dto = new LinkedHashMap<>();
+        final var dto = new LinkedHashMap<Integer, TimeToDTO>();
         diffTimes.forEach((key, pilotTime) ->
                 dto.put(key, pilotTimeToTimeToDTO(pilotTime)));
         return dto;
     }
 
     private static TimeToDTO pilotTimeToTimeToDTO(PilotTime pilotTime) {
-        TimeToDTO dto = new TimeToDTO();
+        final var dto = new TimeToDTO();
         dto.setPilot(pilotToPilotDTO(pilotTime.getPilot()));
         dto.setDiffTime(pilotTime.getFormattedTime());
         dto.setPlaceInLap(pilotTime.getPlaceInRace());
@@ -113,7 +113,7 @@ public class ImportRaceDTOMapper {
     }
 
     private static LapDTO lapInfoToLapDTO(int lapNumber, LapInfos lapInfos) {
-        LapDTO dto = new LapDTO();
+        final var dto = new LapDTO();
         dto.setTime(lapInfos.getTime().toString());
         dto.setLapTime(lapInfos.getLapTime().toString());
         dto.setAvgSpeed(lapInfos.getAvgSpeed());
@@ -122,7 +122,7 @@ public class ImportRaceDTOMapper {
     }
 
     private static Map<Integer, PilotFinishDTO> fillPilotFinishClassificationDTO(Race race) {
-        Map<Integer, PilotFinishDTO> map = new LinkedHashMap<>();
+        final var map = new LinkedHashMap<Integer, PilotFinishDTO>();
         race.getLastLap().getClassification().forEach((pos, classification) -> {
             map.put(pos, classificationToPilotFinishDTO(race, classification));
         });
@@ -130,14 +130,14 @@ public class ImportRaceDTOMapper {
     }
 
     private static PilotFinishDTO classificationToPilotFinishDTO(Race race, Classification classification) {
-        PilotFinishDTO dto = new PilotFinishDTO();
-        PilotRace pilotRace = race.getPilotRace(classification.getPilot().getPilotId());
+        final var dto = new PilotFinishDTO();
+        final var pilotRace = race.getPilotRace(classification.getPilot().getPilotId());
         dto.setAvgSpeed(pilotRace.getAvgSpeed());
         dto.setBestLap(lapInfoToLapDTO(pilotRace.getBestLapNumber(), pilotRace.getBestLap()));
         dto.setPilot(pilotToPilotDTO(pilotRace));
 
-        LapInfos winner = race.getLastLap().getClassification().get(1).getLapInfos();
-        LapInfos lapInfos = classification.getLapInfos();
+        final var winner = race.getLastLap().getClassification().get(1).getLapInfos();
+        final var lapInfos = classification.getLapInfos();
         dto.setTimeToFirst(
                 LocalTime.ofNanoOfDay(lapInfos.getTime().toNanoOfDay() - winner.getTime().toNanoOfDay()).toString()
         );

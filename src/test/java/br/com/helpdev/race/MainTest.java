@@ -1,7 +1,7 @@
 package br.com.helpdev.race;
 
 import br.com.helpdev.race.application.ImporterFacade;
-import br.com.helpdev.race.application.importer.ImporterService;
+import br.com.helpdev.race.application.importer.ImporterServiceImpl;
 import br.com.helpdev.race.application.importer.dto.ImportRaceByDate;
 import br.com.helpdev.race.application.importer.dto.race.RaceDTO;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import java.util.List;
 
 class MainTest {
 
-    private final ImporterFacade importer = new ImporterService();
+    private final ImporterFacade importer = new ImporterServiceImpl();
 
     @Test
     void showRacesFrom() {

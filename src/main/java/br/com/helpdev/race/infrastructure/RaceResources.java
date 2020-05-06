@@ -13,8 +13,8 @@ public class RaceResources {
 
     private static final String APPLICATION_PROPERTIES = "application.properties";
     private static final String KEY_LOG_RACES_FOLDER = "log.races.folder";
-    private static Properties properties;
-    
+    private static final Properties properties;
+
     static {
         properties = new Properties();
         try {

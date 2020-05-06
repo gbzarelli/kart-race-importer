@@ -5,17 +5,17 @@ import java.util.*;
 
 public class Race {
 
-    private RaceId id;
-    private String name;
-    private Map<PilotId, PilotRace> pilots;
-    private Map<Integer, LapRace> laps;
-    private LocalDate date;
+    private final RaceId id;
+    private final String name;
+    private final Map<PilotId, PilotRace> pilots;
+    private final Map<Integer, LapRace> laps;
+    private final LocalDate date;
 
-    public Race(String name, LocalDate date) {
+    public Race(final String name, final LocalDate date) {
         this(RaceId.getNewRaceID(), name, date);
     }
 
-    public Race(RaceId raceId, String name, LocalDate date) {
+    public Race(final RaceId raceId, final String name, final LocalDate date) {
         this.id = raceId;
         this.name = name;
         this.date = date;
@@ -27,13 +27,13 @@ public class Race {
         return id;
     }
 
-    void updateLapRace(Integer lapNumber, Pilot pilot, LapInfos lap) {
-        LapRace lapRace = laps.getOrDefault(lapNumber, new LapRace(lapNumber));
+    void updateLapRace(final Integer lapNumber, final Pilot pilot, final LapInfos lap) {
+        final var lapRace = laps.getOrDefault(lapNumber, new LapRace(lapNumber));
         lapRace.updateClassification(pilot, lap);
         laps.put(lapNumber, lapRace);
     }
 
-    void addPilot(PilotRace pilot) {
+    void addPilot(final PilotRace pilot) {
         if (!pilots.containsKey(pilot.getPilotId())) pilots.put(pilot.getPilotId(), pilot);
     }
 
@@ -41,7 +41,7 @@ public class Race {
         return Collections.unmodifiableMap(laps);
     }
 
-    public LapRace getLap(int lapNumber) {
+    public LapRace getLap(final int lapNumber) {
         if (lapNumber > laps.size()) return null;
         return laps.get(lapNumber);
     }

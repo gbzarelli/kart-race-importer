@@ -9,11 +9,12 @@ class RaceMapper {
     private RaceMapper() {
     }
 
-    static LapInfos getLapInfoFromLapEntity(LapEntity entity) {
+    static LapInfos getLapInfoFromLapEntity(final LapEntity entity) {
         return new LapInfos(entity.getTime(), entity.getLapTime(), entity.getSpeedAvg());
     }
 
-    static PilotRace getPilotRaceFromPilotEntity(Race race, PilotEntity pilotEntity) {
+    static PilotRace getPilotRaceFromPilotEntity(final Race race,
+                                                 final PilotEntity pilotEntity) {
         return new Pilot(new PilotId(pilotEntity.getNumber()), pilotEntity.getName())
                 .subscribe()
                 .toRace(race);

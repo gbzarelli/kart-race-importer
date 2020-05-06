@@ -4,11 +4,11 @@ import java.time.LocalTime;
 
 public class LapInfos {
 
-    private LocalTime time;
-    private LocalTime lapTime;
-    private Float avgSpeed;
+    private final LocalTime time;
+    private final LocalTime lapTime;
+    private final Float avgSpeed;
 
-    public LapInfos(LocalTime time, LocalTime lapTime, Float avgSpeed) {
+    public LapInfos(final LocalTime time, final LocalTime lapTime, final Float avgSpeed) {
         this.time = time;
         this.lapTime = lapTime;
         this.avgSpeed = avgSpeed;
@@ -22,7 +22,7 @@ public class LapInfos {
         return lapTime;
     }
 
-    public boolean bestOf(LapInfos lapInfos) {
+    public boolean bestOf(final LapInfos lapInfos) {
         return lapInfos == null || lapTime.toNanoOfDay() < lapInfos.lapTime.toNanoOfDay();
     }
 

@@ -1,16 +1,17 @@
 package br.com.helpdev.race.application.importer.dto;
 
 import br.com.helpdev.race.application.importer.dto.race.RaceDTO;
-import br.com.helpdev.race.shared.dto.OutputDTO;
 
 import java.util.List;
 
-public class RacesImported extends OutputDTO {
+public class RacesImported extends AbstractResponseDTO {
 
     private String date;
     private List<RaceDTO> races;
 
-    public RacesImported(Status status, String date, List<RaceDTO> races) {
+    public RacesImported(final Status status,
+                         final String date,
+                         final List<RaceDTO> races) {
         super(status);
         this.date = date;
         this.races = races;

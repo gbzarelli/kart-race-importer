@@ -1,11 +1,10 @@
-package br.com.helpdev.race.shared.utils;
+package br.com.helpdev.race.commons.time;
 
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
-import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TimeUtilsTest {
 
