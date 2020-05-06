@@ -2,11 +2,13 @@ package br.com.helpdev.race.domain.race;
 
 public class FasterLap {
 
-    private Pilot pilot;
-    private PilotTime pilotTime;
-    private LapInfos lapInfos;
+    private final Pilot pilot;
+    private final PilotTime pilotTime;
+    private final LapInfos lapInfos;
 
-    FasterLap(Pilot pilot, PilotTime pilotTime, LapInfos lapInfos) {
+    FasterLap(final Pilot pilot,
+              final PilotTime pilotTime,
+              final LapInfos lapInfos) {
         this.pilot = pilot;
         this.pilotTime = pilotTime;
         this.lapInfos = lapInfos;

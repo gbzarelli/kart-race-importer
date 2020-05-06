@@ -1,11 +1,14 @@
 package br.com.helpdev.race.domain.race;
 
+import java.util.Objects;
+
 public class Pilot {
 
-    private PilotId pilotId;
-    private String name;
+    private final PilotId pilotId;
+    private final String name;
 
-    public Pilot(PilotId pilotId, String name) {
+    public Pilot(final PilotId pilotId,
+                 final String name) {
         this.pilotId = pilotId;
         this.name = name;
     }
@@ -34,6 +37,11 @@ public class Pilot {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof Pilot && ((Pilot) obj).pilotId.equals(pilotId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pilotId, name);
     }
 
     @Override

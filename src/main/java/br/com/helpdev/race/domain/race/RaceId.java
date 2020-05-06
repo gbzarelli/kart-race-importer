@@ -4,9 +4,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class RaceId {
-    private String id;
+    private final String id;
 
-    private RaceId(String id) {
+    private RaceId(final String id) {
         this.id = id;
     }
 

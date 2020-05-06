@@ -4,17 +4,17 @@ import br.com.helpdev.race.domain.importer.RaceRepository;
 import br.com.helpdev.race.domain.importer.Races;
 import br.com.helpdev.race.domain.race.PilotRace;
 import br.com.helpdev.race.domain.race.Race;
-import br.com.helpdev.race.infrastructure.logfile.entities.LapEntity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static br.com.helpdev.race.infrastructure.RaceResources.getPathLogRacesFolder;
@@ -23,17 +23,17 @@ import static br.com.helpdev.race.infrastructure.logfile.RaceMapper.getPilotRace
 
 public class RaceLogFileRepository implements RaceRepository {
 
-    private static final String DATE_TIME_FORMATTER_PATTERN_YYYYMMMDD = "yyyyMMdd";
+    private static final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
 
     @Override
-    public Races importRacesByDate(LocalDate localDate) {
+    public Races importRacesByDate(final LocalDate localDate) {
         Objects.requireNonNull(localDate);
 
-        List<Race> races = new ArrayList<>();
+        final var races = new ArrayList<Race>();
         Races racesReturn = Races.getRaces(races, localDate);
 
         try {
-            Stream<Path> pathStream = getFilesByDate(getPathLogRacesFolder(), localDate);
+            final var pathStream = getFilesByDate(getPathLogRacesFolder(), localDate);
             pathStream.parallel().forEach(path -> {
                 try {
                     races.add(getRaceFromPath(path, localDate));
@@ -48,21 +48,21 @@ public class RaceLogFileRepository implements RaceRepository {
         return racesReturn;
     }
 
-    private Race getRaceFromPath(Path path, LocalDate date) throws IOException {
-        BufferedReader bis = getBufferedReader(path);
+    private Race getRaceFromPath(final Path path, final LocalDate date) throws IOException {
+        final var bis = getBufferedReader(path);
         bis.readLine();//SKIP FIRST LINE
-        Race race = new Race(path.toString(), date);
+        final var race = new Race(path.toString(), date);
         fillRace(bis, race);
         return race;
     }
 
-    private void fillRace(BufferedReader bis, Race race) throws IOException {
-        Map<Integer, PilotRace> pilots = new HashMap<>();
+    private void fillRace(final BufferedReader bis, final Race race) throws IOException {
+        final var pilots = new HashMap<Integer, PilotRace>();
 
         while (bis.ready()) {
-            String line = bis.readLine();
-            LapEntity entity = LapLogFileMapper.parse(line);
-            PilotRace pilot = pilots.get(entity.getPilot().getNumber());
+            final var line = bis.readLine();
+            final var entity = LapLogFileMapper.parse(line);
+            var pilot = pilots.get(entity.getPilot().getNumber());
             if (pilot == null) {
                 pilot = getPilotRaceFromPilotEntity(race, entity.getPilot());
                 pilots.put(pilot.getPilotId().getNumber(), pilot);
@@ -71,13 +71,13 @@ public class RaceLogFileRepository implements RaceRepository {
         }
     }
 
-    private BufferedReader getBufferedReader(Path path) throws IOException {
-        InputStream is = Files.newInputStream(path);
+    private BufferedReader getBufferedReader(final Path path) throws IOException {
+        final var is = Files.newInputStream(path);
         return new BufferedReader(new InputStreamReader(is));
     }
 
-    private Stream<Path> getFilesByDate(Path root, LocalDate localDate) throws IOException {
-        String formattedDate = DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER_PATTERN_YYYYMMMDD).format(localDate);
+    private Stream<Path> getFilesByDate(final Path root, final LocalDate localDate) throws IOException {
+        final var formattedDate = dateTimeFormat.format(localDate);
         return Files.list(root).filter(filter -> filter.getFileName().toString().startsWith(formattedDate));
     }
 }

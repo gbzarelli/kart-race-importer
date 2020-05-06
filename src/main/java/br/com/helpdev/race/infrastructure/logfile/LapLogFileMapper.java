@@ -3,37 +3,37 @@ package br.com.helpdev.race.infrastructure.logfile;
 import br.com.helpdev.race.infrastructure.logfile.entities.LapEntity;
 import br.com.helpdev.race.infrastructure.logfile.entities.PilotEntity;
 
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static br.com.helpdev.race.shared.utils.TimeUtils.convertToLocalTime;
+import static br.com.helpdev.race.commons.time.TimeUtils.convertToLocalTime;
 
 class LapLogFileMapper {
+
+    private static final DateTimeFormatter pattern = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 
     private LapLogFileMapper() {
     }
 
-    static LapEntity parse(String input) {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
-        String[] split = input.split("\\s+");
+    static LapEntity parse(final String input) {
+        final var split = input.split("\\s+");
 
-        String timeString = split[0].trim();
-        int pilotNumber = Integer.parseInt(split[1].trim());
-        int lapNumber = Integer.parseInt(split[split.length - 3].trim());
-        String lapTimeString = split[split.length - 2].trim();
+        final var timeString = split[0].trim();
+        final var pilotNumber = Integer.parseInt(split[1].trim());
+        final var lapNumber = Integer.parseInt(split[split.length - 3].trim());
+        final var lapTimeString = split[split.length - 2].trim();
 
-        LocalTime time = convertToLocalTime(
+        final var time = convertToLocalTime(
                 timeString,
                 pattern
         );
-        String pilot = extractPilotName(input);
-        LocalTime lapTime = convertToLocalTime(
+        final var pilot = extractPilotName(input);
+        final var lapTime = convertToLocalTime(
                 lapTimeString,
                 pattern
         );
-        float speedAvg = Float.parseFloat(split[split.length - 1].trim().replace(',', '.'));
+        final var speedAvg = Float.parseFloat(split[split.length - 1].trim().replace(',', '.'));
 
         return new LapEntity(
                 time,
@@ -44,8 +44,8 @@ class LapLogFileMapper {
         );
     }
 
-    private static String extractPilotName(String input) {
-        Matcher matcher = Pattern.compile("[A-Z].*[A-Z]").matcher(input);
+    private static String extractPilotName(final String input) {
+        final var matcher = Pattern.compile("[A-Z].*[A-Z]").matcher(input);
         if (matcher.find()) {
             return matcher.group();
         }

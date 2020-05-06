@@ -1,10 +1,11 @@
 package br.com.helpdev.race.infrastructure.logfile.entities;
 
 public class PilotEntity {
-    private int number;
-    private String name;
+    private final int number;
+    private final String name;
 
-    public PilotEntity(int number, String name) {
+    public PilotEntity(final int number,
+                       final String name) {
         this.number = number;
         this.name = name;
     }

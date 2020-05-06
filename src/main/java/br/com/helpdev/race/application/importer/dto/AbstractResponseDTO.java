@@ -1,8 +1,8 @@
-package br.com.helpdev.race.shared.dto;
+package br.com.helpdev.race.application.importer.dto;
 
-import br.com.helpdev.race.shared.notification.Notifiable;
+import br.com.helpdev.race.commons.objects.Notifiable;
 
-public abstract class OutputDTO extends Notifiable {
+public abstract class AbstractResponseDTO extends Notifiable {
 
     public enum Status {
         SUCCESS, ERROR
@@ -10,7 +10,7 @@ public abstract class OutputDTO extends Notifiable {
 
     private final Status status;
 
-    public OutputDTO(Status status) {
+    public AbstractResponseDTO(final Status status) {
         this.status = status;
     }
 

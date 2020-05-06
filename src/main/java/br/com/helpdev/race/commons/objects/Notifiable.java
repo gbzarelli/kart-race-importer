@@ -1,4 +1,4 @@
-package br.com.helpdev.race.shared.notification;
+package br.com.helpdev.race.commons.objects;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -8,11 +8,11 @@ public abstract class Notifiable {
 
     private final Set<String> notifications = new HashSet<>();
 
-    public void addNotification(String message) {
+    public void addNotification(final String message) {
         notifications.add(message);
     }
 
-    public void addNotifiable(Notifiable notifiable) {
+    public void addNotifiable(final Notifiable notifiable) {
         notifications.addAll(notifiable.getNotifications());
     }
 

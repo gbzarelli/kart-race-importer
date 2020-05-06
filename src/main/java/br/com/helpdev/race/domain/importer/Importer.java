@@ -15,6 +15,6 @@ public class Importer {
 
     @FunctionalInterface
     public interface By {
-        Races byDate(LocalDate localDate);
+        Races byDate(final LocalDate localDate);
     }
 }

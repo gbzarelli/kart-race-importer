@@ -1,15 +1,17 @@
 package br.com.helpdev.race.domain.race;
 
-import br.com.helpdev.race.shared.utils.TimeUtils;
+import br.com.helpdev.race.commons.time.TimeUtils;
 
 public class PilotTime {
 
-    private Integer placeInRace;
-    private Pilot pilot;
-    private long timeInNano;
-    private String formattedTime;
+    private final Integer placeInRace;
+    private final Pilot pilot;
+    private final long timeInNano;
+    private final String formattedTime;
 
-    PilotTime(Integer placeInRace, Pilot pilot, long timeInNano) {
+    PilotTime(final Integer placeInRace,
+              final Pilot pilot,
+              final long timeInNano) {
         this.placeInRace = placeInRace;
         this.pilot = pilot;
         this.timeInNano = timeInNano;
@@ -32,7 +34,7 @@ public class PilotTime {
         return formattedTime;
     }
 
-    boolean isFasterThan(PilotTime lastFaster) {
+    boolean isFasterThan(final PilotTime lastFaster) {
         return timeInNano < lastFaster.getTimeInNano();
     }
 

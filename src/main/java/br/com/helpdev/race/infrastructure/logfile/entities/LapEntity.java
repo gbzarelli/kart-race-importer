@@ -5,13 +5,17 @@ import java.time.LocalTime;
 
 public class LapEntity {
 
-    private LocalTime time;
-    private PilotEntity pilot;
-    private Integer lapNumber;
-    private LocalTime lapTime;
-    private Float speedAvg;
+    private final LocalTime time;
+    private final PilotEntity pilot;
+    private final Integer lapNumber;
+    private final LocalTime lapTime;
+    private final Float speedAvg;
 
-    public LapEntity(LocalTime time, PilotEntity pilot, Integer lapNumber, LocalTime lapTime, Float speedAvg) {
+    public LapEntity(final LocalTime time,
+                     final PilotEntity pilot,
+                     final Integer lapNumber,
+                     final LocalTime lapTime,
+                     final Float speedAvg) {
         this.time = time;
         this.pilot = pilot;
         this.lapNumber = lapNumber;

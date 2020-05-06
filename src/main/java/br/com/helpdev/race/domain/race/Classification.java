@@ -2,7 +2,7 @@ package br.com.helpdev.race.domain.race;
 
 import java.util.*;
 
-import static br.com.helpdev.race.shared.utils.TimeUtils.getDiffInNano;
+import static br.com.helpdev.race.commons.time.TimeUtils.getDiffInNano;
 
 public class Classification {
 
@@ -11,7 +11,10 @@ public class Classification {
         private Builder() {
         }
 
-        static Classification create(int placeInRace, Pilot pilot, LapInfos lap, Map<Integer, Classification> listClassification) {
+        static Classification create(final int placeInRace,
+                                     final Pilot pilot,
+                                     final LapInfos lap,
+                                     final Map<Integer, Classification> listClassification) {
             Classification classification = new Classification(placeInRace, pilot, lap);
             if (listClassification.isEmpty()) return classification;
 
@@ -24,12 +27,14 @@ public class Classification {
         }
     }
 
-    private int placeInRace;
-    private Pilot pilot;
-    private LapInfos lap;
-    private Map<Integer, PilotTime> timeTo;
+    private final int placeInRace;
+    private final Pilot pilot;
+    private final LapInfos lap;
+    private final Map<Integer, PilotTime> timeTo;
 
-    private Classification(int placeInRace, Pilot pilot, LapInfos lap) {
+    private Classification(final int placeInRace,
+                           final Pilot pilot,
+                           final LapInfos lap) {
         this.placeInRace = placeInRace;
         this.pilot = pilot;
         this.lap = lap;

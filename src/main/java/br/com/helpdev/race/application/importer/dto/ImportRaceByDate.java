@@ -1,14 +1,12 @@
 package br.com.helpdev.race.application.importer.dto;
 
-import br.com.helpdev.race.shared.dto.InputDTO;
-
 import java.time.LocalDate;
 
-public class ImportRaceByDate extends InputDTO {
+public class ImportRaceByDate {
 
-    private LocalDate localDate;
+    private final LocalDate localDate;
 
-    public ImportRaceByDate(LocalDate localDate) {
+    public ImportRaceByDate(final LocalDate localDate) {
         this.localDate = localDate;
     }
 
