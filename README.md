@@ -14,6 +14,19 @@ project is to transcribe this information into complex data and
 statistical information about a race. Java has been used as the 
 programming language with as few external dependencies as possible.
 
+# Architecture
+
+In this project the concept of Clean Architecture was used without modular separation;
+The barriers are defined by the following packages in the order of least isolation for the most isolation;
+
+- infrastructure
+- application
+- domain
+
+<p align="center">
+    <img src="./images/clean-architecture.png" height="350">
+</p>
+
 ## Data for import
 
 The data folder to be imported is configured in the
@@ -97,17 +110,22 @@ executes `importRaces(date)`, the result is converted to JSON to verify it as an
 ```java
 public class Main {
 
-    public static void main(String[] args) {
-        Main main = new Main();
-        main.showRacesFrom(LocalDate.of(2019, Month.JUNE, 18));
+    public static void main(final String[] args) {
+        final var main = new Main();
+        main.showRacesFrom(LocalDate.of(2019, Month.JUNE, 1));
     }
 
-    private final ImporterFacade importer = new ImporterService();
+    private final ImporterFacade facade;
 
-    private void showRacesFrom(LocalDate localDate) {
-        RacesImported races = importer.importRaces(new ImportRaceByDate(localDate));
+    public Main() {
+      final var repository = new RaceLogFileRepository();
+      final var importer = new Importer(repository);
+      facade = new ImporterServiceImpl(importer);
+    }
+
+    private void showRacesFrom(final LocalDate localDate) {
+        RacesImported races = facade.importRaces(new ImportRaceByDate(localDate));
         System.out.println(new Gson().toJson(races));
-        System.out.println(races);
     }
 }
 ```
