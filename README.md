@@ -2,6 +2,10 @@
 
 # Kart Race Importer [![CircleCI](https://circleci.com/gh/gbzarelli/kart-race-importer.svg?style=svg)](https://circleci.com/gh/gbzarelli/kart-race-importer)
 
+<p align="center">
+    <img src="./images/kart-logo.png" height="450">
+</p>
+
 The 'Kart Race Importer' is a project to import data held
 in log files. These files contain information about a race
 of kart, kept in a structural format of 'laps', where each lap

@@ -4,6 +4,8 @@ import br.com.helpdev.race.application.ImporterFacade;
 import br.com.helpdev.race.application.importer.ImporterServiceImpl;
 import br.com.helpdev.race.application.importer.dto.ImportRaceByDate;
 import br.com.helpdev.race.application.importer.dto.race.RaceDTO;
+import br.com.helpdev.race.domain.importer.Importer;
+import br.com.helpdev.race.infrastructure.logfile.RaceLogFileRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class MainTest {
 
-    private final ImporterFacade importer = new ImporterServiceImpl();
+    private final ImporterFacade importer = new ImporterServiceImpl(new Importer(new RaceLogFileRepository()));
 
     @Test
     @DisplayName("This test is only to show races from 2019/06/18")
