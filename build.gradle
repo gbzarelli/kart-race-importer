@@ -1,9 +1,11 @@
 plugins {
     id 'java'
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.10.1'
 }
 
 group 'br.com.helpdev'
-version '1.0-SNAPSHOT'
+version '1.1.0-SNAPSHOT'
 
 sourceCompatibility = 13
 
@@ -13,6 +15,15 @@ repositories {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
 
 dependencies {

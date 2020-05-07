@@ -1,4 +1,8 @@
-![Issues](https://img.shields.io/github/issues/gbzarelli/kart-race-importer.svg) ![Forks](https://img.shields.io/github/forks/gbzarelli/kart-race-importer.svg) ![Stars](https://img.shields.io/github/stars/gbzarelli/kart-race-importer.svg) ![Release Version](https://img.shields.io/github/release/gbzarelli/kart-race-importer.svg)
+![Issues](https://img.shields.io/github/issues/gbzarelli/kart-race-importer.svg) 
+![Forks](https://img.shields.io/github/forks/gbzarelli/kart-race-importer.svg) 
+![Stars](https://img.shields.io/github/stars/gbzarelli/kart-race-importer.svg) 
+![Release Version](https://img.shields.io/github/release/gbzarelli/kart-race-importer.svg)
+[![Coverage Status](https://coveralls.io/repos/github/gbzarelli/kart-race-importer/badge.svg?branch=master)](https://coveralls.io/github/gbzarelli/kart-race-importer?branch=master)
 
 # Kart Race Importer [![CircleCI](https://circleci.com/gh/gbzarelli/kart-race-importer.svg?style=svg)](https://circleci.com/gh/gbzarelli/kart-race-importer)
 
@@ -13,6 +17,17 @@ contains pilot information, time, lap and speed. The idea of the
 project is to transcribe this information into complex data and 
 statistical information about a race. Java has been used as the 
 programming language with as few external dependencies as possible.
+
+## Technologies
+
+ - [`Java/OpenJDK 13`](https://openjdk.java.net/projects/jdk/13/) - Java Development Kit 13
+ - [`jUnit5`](https://junit.org/junit5/) - Tests execution
+ 
+#### Note 
+
+The project has several points that could use resources such as libraries that however, 
+the project was developed with the idea of using the language's own resources 
+with the **minimum possible external dependencies**.
 
 # Architecture
 
@@ -129,13 +144,6 @@ public class Main {
     }
 }
 ```
-
-## Notes
-
-The project has several points that could use resources such as
-injection of dependencies and libraries that however, the project was developed with
-the idea of using the language's own resources with the **minimum possible 
-external dependencies**.
 
 ## Licence
 

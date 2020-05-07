@@ -32,5 +32,5 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
-      # run tests!
-      - run: ./gradlew test
+      # run tests! # necessary env: COVERALLS_REPO_TOKEN
+      - run: ./gradlew check coveralls
