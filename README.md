@@ -20,16 +20,16 @@ programming language with as few external dependencies as possible.
 
 ## Technologies
 
- - [`Java/OpenJDK 13`](https://openjdk.java.net/projects/jdk/13/) - Java Development Kit 13
- - [`jUnit5`](https://junit.org/junit5/) - Tests execution
+- [`Java/OpenJDK 13`](https://openjdk.java.net/projects/jdk/13/) - Java Development Kit 13
+- [`jUnit5`](https://junit.org/junit5/) - Tests execution
  
-#### Note 
+### Note
 
 The project has several points that could use resources such as libraries that however, 
 the project was developed with the idea of using the language's own resources 
 with the **minimum possible external dependencies**.
 
-# Architecture
+## Architecture
 
 In this project the concept of Clean Architecture was used without modular separation;
 The barriers are defined by the following packages in the order of least isolation for the most isolation;
@@ -90,32 +90,32 @@ return a list of imported races.
 When importing the file, a race model will be generated, through this 
 model we can extract various information such as:
 
-- Classification by driver:
-    - Best lap.
-    - Average speed.
-    - Time for the first.
+- Classification by a driver:
+  - Best lap.
+  - Average speed.
+  - Time for the first.
 
 - List of laps of the race:
-    - Number of the lap.
-    - Classification of the lap by pilot:
-        - Placement on lap
-        - Lap Information:
-            - Time.
-            - Lap time.
-            - Average speed.
-        - List the time difference for each rider ahead of you on the lap.
-            - Pilot
-            - Placement on lap
-            - Time
-    - Faster lap pilot:
-        - Placement on lap
-        - Time
-        - Average speed.
+  - Number of the lap.
+  - Classification of the lap by pilot:
+    - Placement on lap
+    - Lap Information:
+      - Time.
+      - Lap time.
+      - Average speed.
+    - List the time difference for each rider ahead of you on the lap.
+      - Pilot
+      - Placement on lap
+      - Time
+  - Faster lap pilot:
+    - Placement on lap
+    - Time
+    - Average speed.
 
 ## Entry Point
 
-Currently I have not created a clear entry point for this project, 
-such as a REST or something like that. But to test execution, 
+Currently, I have not created a clear entry point for this project, 
+such as a REST or something like that. For test execution, 
 I have created a `Main.java` in the root of the `package ('br.com.helpdev.race')`
 of the project so that execution can be done.
 

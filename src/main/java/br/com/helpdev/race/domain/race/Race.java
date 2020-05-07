@@ -27,13 +27,13 @@ public class Race {
         return id;
     }
 
-    void updateLapRace(final Integer lapNumber, final Pilot pilot, final LapInfos lap) {
+    protected void updateLapRace(final Integer lapNumber, final Pilot pilot, final LapInfos lap) {
         final var lapRace = laps.getOrDefault(lapNumber, new LapRace(lapNumber));
         lapRace.updateClassification(pilot, lap);
         laps.put(lapNumber, lapRace);
     }
 
-    void addPilot(final PilotRace pilot) {
+    protected void addPilot(final PilotRace pilot) {
         if (!pilots.containsKey(pilot.getPilotId())) pilots.put(pilot.getPilotId(), pilot);
     }
 

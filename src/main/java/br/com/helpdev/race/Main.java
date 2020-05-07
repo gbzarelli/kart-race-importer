@@ -14,17 +14,17 @@ import br.com.helpdev.race.infrastructure.logfile.RaceLogFileRepository;
 
 public class Main {
 
+    private final ImporterFacade facade;
+
     public static void main(final String[] args) {
         final var main = new Main();
         main.showRacesFrom(LocalDate.of(2019, Month.JUNE, 1));
     }
 
-    private final ImporterFacade facade;
-
     public Main() {
-      final var repository = new RaceLogFileRepository();
-      final var importer = new Importer(repository);
-      facade = new ImporterServiceImpl(importer);
+        final var repository = new RaceLogFileRepository();
+        final var importer = new Importer(repository);
+        facade = new ImporterServiceImpl(importer);
     }
 
     private void showRacesFrom(final LocalDate localDate) {

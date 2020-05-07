@@ -1,10 +1,10 @@
 package br.com.helpdev.race.application.importer.dto.mapper;
 
+import br.com.helpdev.race.application.importer.dto.AbstractResponseDTO;
 import br.com.helpdev.race.application.importer.dto.RacesImported;
 import br.com.helpdev.race.application.importer.dto.race.*;
 import br.com.helpdev.race.domain.importer.Races;
 import br.com.helpdev.race.domain.race.*;
-import br.com.helpdev.race.application.importer.dto.AbstractResponseDTO;
 
 import java.time.LocalTime;
 import java.util.LinkedHashMap;

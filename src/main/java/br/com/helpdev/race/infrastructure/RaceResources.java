@@ -8,9 +8,6 @@ import java.util.Properties;
 
 public class RaceResources {
 
-    private RaceResources() {
-    }
-
     private static final String APPLICATION_PROPERTIES = "application.properties";
     private static final String KEY_LOG_RACES_FOLDER = "log.races.folder";
     private static final Properties properties;
@@ -25,6 +22,9 @@ public class RaceResources {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private RaceResources() {
     }
 
     public static Path getPathLogRacesFolder() {

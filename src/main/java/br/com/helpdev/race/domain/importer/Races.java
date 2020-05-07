@@ -9,12 +9,12 @@ import java.util.List;
 
 public class Races extends Notifiable {
 
+    private final LocalDate localDate;
+    private final List<Race> items;
+
     public static Races getRaces(final List<Race> races, final LocalDate localDate) {
         return new Races(races, localDate);
     }
-
-    private final LocalDate localDate;
-    private final List<Race> items;
 
     private Races(final List<Race> items, final LocalDate localDate) {
         this.items = items;

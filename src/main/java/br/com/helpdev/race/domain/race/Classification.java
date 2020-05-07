@@ -6,7 +6,12 @@ import static br.com.helpdev.race.commons.time.TimeUtils.getDiffInNano;
 
 public class Classification {
 
-    static class Builder {
+    private final int placeInRace;
+    private final Pilot pilot;
+    private final LapInfos lap;
+    private final Map<Integer, PilotTime> timeTo;
+
+    protected static class Builder {
 
         private Builder() {
         }
@@ -26,11 +31,6 @@ public class Classification {
             return classification;
         }
     }
-
-    private final int placeInRace;
-    private final Pilot pilot;
-    private final LapInfos lap;
-    private final Map<Integer, PilotTime> timeTo;
 
     private Classification(final int placeInRace,
                            final Pilot pilot,

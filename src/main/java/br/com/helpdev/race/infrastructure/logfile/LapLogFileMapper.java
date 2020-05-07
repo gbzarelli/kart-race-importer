@@ -4,7 +4,6 @@ import br.com.helpdev.race.infrastructure.logfile.entities.LapEntity;
 import br.com.helpdev.race.infrastructure.logfile.entities.PilotEntity;
 
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static br.com.helpdev.race.commons.time.TimeUtils.convertToLocalTime;
