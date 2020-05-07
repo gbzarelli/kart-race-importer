@@ -2,6 +2,7 @@
 ![Forks](https://img.shields.io/github/forks/gbzarelli/kart-race-importer.svg) 
 ![Stars](https://img.shields.io/github/stars/gbzarelli/kart-race-importer.svg) 
 ![Release Version](https://img.shields.io/github/release/gbzarelli/kart-race-importer.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/36d0fe93fa554cca9a32561482d64a7b)](https://app.codacy.com/manual/gbzarelli/kart-race-importer?utm_source=github.com&utm_medium=referral&utm_content=gbzarelli/kart-race-importer&utm_campaign=Badge_Grade_Settings)
 [![Coverage Status](https://coveralls.io/repos/github/gbzarelli/kart-race-importer/badge.svg?branch=master)](https://coveralls.io/github/gbzarelli/kart-race-importer?branch=master)
 
 # Kart Race Importer [![CircleCI](https://circleci.com/gh/gbzarelli/kart-race-importer.svg?style=svg)](https://circleci.com/gh/gbzarelli/kart-race-importer)
